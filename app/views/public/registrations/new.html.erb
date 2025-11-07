@@ -1,0 +1,41 @@
+<h2>Sign up</h2>
+
+<%= form_with model: @customer, url: customer_registration_path do |f| %>
+  <%= render "public/shared/error_messages", resource: resource %>
+
+  <div class="field">
+  <label>氏名</label>
+  <%= f.text_field :name, placeholder: "ヤマダ" %>
+  </div>
+
+  <div class="field">
+    <label>住所</label>
+    <%= f.text_field :address, placeholder: "東京都渋谷区代々木神園町0-0" %>
+  </div>
+
+    <div class="field">
+    <label>ゴルフ歴（年）</label>
+    <%= f.text_field :history, placeholder: "5" %>
+  </div>
+
+  <div class="field">
+    <label>メールアドレス</label>
+    <%= f.email_field :email, placeholder: "sample@example.com", autofocus: true, autocomplete: "email" %>
+  </div>
+
+  <div class="field">
+    <label>パスワード（6文字以上）</label>
+    <%= f.password_field :password, autocomplete: "new-password" %>
+  </div>
+
+  <div class="field">
+    <label>パスワード（確認用）</label>
+    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Sign up" %>
+  </div>
+<% end %>
+
+<%= render "public/shared/links" %>
