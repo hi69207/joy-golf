@@ -1,30 +1,24 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>JoyGolf</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>ジョイゴル</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <script src="https://kit.fontawesome.com/42f752a42f.js" crossorigin="anonymous"></script>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <header>
-    <% if customer_signed_in? %>
-      <li>
-        <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
-      </li>
-    <% else %>
-      <li>
-        <%= link_to "会員登録", new_customer_registration_path %>
-      </li>
-      <li>
-        <%= link_to "ログイン", new_customer_session_path %>
-      </li>
-    <% end %>
-    </header>
-    <%= yield %>
+  <body class="d-flex flex-column vh-100">
+    <%= render "layouts/header" %>
+
+    <main class="mb-auto">
+      <div class="container">
+        <%= render "layouts/flash" %>
+        <%= yield %>
+      </div>
+    </main>
   </body>
 </html>

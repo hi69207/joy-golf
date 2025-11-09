@@ -1,0 +1,20 @@
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>都道府県名</th>
+      <th>緯度</th>
+      <th>経度</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% prefectures.each do |prefecture| %>
+      <tr>
+        <td><%= image_tag prefecture.get_prefecture_image, size:'100x100' %></td>
+        <td><%= prefecture.name %></td>
+        <td><%= prefecture.latitude %></td>
+        <td><%= prefecture.longitude %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

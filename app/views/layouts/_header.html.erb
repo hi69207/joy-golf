@@ -1,0 +1,37 @@
+<header class="shadow-sm">
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container">
+      <a class="navbar-brand p-3" href="/"><%= image_tag('golf_green.png', size: '75x75') %></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                       aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+              <% if admin_signed_in? %>
+                <li class="nav-item">
+                  <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to "都道府県一覧", admin_prefectures_path %>
+                </li>
+              <% elsif customer_signed_in? %>
+                <li class="nav-item">
+                  <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
+                </li>
+              <% else %>
+                <li class="nav-item">
+                  <%= link_to "About", root_path %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to "会員登録", new_customer_registration_path %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to "ログイン", new_customer_session_path %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+    </div>
+  </nav>
+</header>

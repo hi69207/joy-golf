@@ -1,0 +1,14 @@
+<div class='container'>
+  <div class='row'>
+    <div class='col'>
+      <h1>都道府県</h1>
+      <h2>登録フォーム</h2>
+      <%= render 'layouts/errors', obj: @prefecture %>
+      <%= render 'form', prefecture: @prefecture %>
+    </div>
+    <div class='col'>
+      <h2>登録一覧</h2>
+      <%= render 'index', prefectures: @prefectures %>
+    </div>
+  </div>
+</div>
