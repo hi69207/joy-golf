@@ -1,6 +1,6 @@
 class Admin::SessionsController < Devise::SessionsController
   def after_sign_in_path_for(_resource)
-    admin_root_path
+    admin_top_path
   end
   
   def after_sign_out_path_for(_resource)

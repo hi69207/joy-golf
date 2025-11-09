@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
+devise_for :admin, path: 'admin', skip: [:registrations, :passwords] ,controllers: {
   sessions: "admin/sessions"
 }
 
@@ -10,8 +10,8 @@ devise_for :customers,skip: [:passwords], controllers: {
 }
 
   scope module: :public do
-    root to: "homes#top"
-    get "about", to: "homes#about"
+    root to: "homes#about"
+    get "top" => "homes#top"
     get "customers/my_page" => "customers#show"
     get "customers/information/edit" => "customers#edit"
     patch "customers/information" => "customers#update"
@@ -22,6 +22,7 @@ devise_for :customers,skip: [:passwords], controllers: {
 
   namespace :admin do
     root to: "homes#top"
+    get "top" => "homes#top"
     resources :customers, only: [:index, :show, :edit, :update]
     resources :courses, only: [:index, :show, :edit, :update]
     resources :posts, only: [:show, :edit, :update, :destroy]
