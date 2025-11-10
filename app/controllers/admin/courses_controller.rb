@@ -14,7 +14,7 @@ class Admin::CoursesController < ApplicationController
     else
       @courses = Course.all
       @prefectures = Prefecture.all
-      render 'index'
+      render :index
     end
   end
 
@@ -32,7 +32,7 @@ class Admin::CoursesController < ApplicationController
     if @course.update(course_params)
       redirect_to admin_courses_path, notice: "更新しました。"
     else
-      render "edit"
+      render :edit
     end
   end
 

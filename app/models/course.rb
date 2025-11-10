@@ -3,7 +3,7 @@ class Course < ApplicationRecord
   belongs_to :prefecture
   has_many :posts, dependent: :nullify
 
-  def status_text
+  def course_state
     if is_active
       "有効"
     else

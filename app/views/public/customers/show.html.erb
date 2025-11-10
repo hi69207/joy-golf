@@ -1,0 +1,23 @@
+<div class="container">
+  <h1>マイページ</h1>
+  <div class='row'>
+
+    <div class='col'>
+      <h2>詳細</h2>
+  		<table class='table'>
+  		  <tr>
+          <td><%= image_tag @customer.get_profile_image, size:'200x200' %></td>
+          <td><%= @customer.name %></td>
+          <td><%= @customer.prefecture.name %></td>
+          <td><%= @customer.address %></td>
+          <td><%= @customer.history %></td>
+          <td><%= @customer.email %></td>
+          <td><%= @customer.customer_state %></td>
+        </tr>
+      </table>
+      <% if @customer == current_customer %>
+        <%= link_to '編集', customers_information_edit_path(@customer), class: "btn btn-success" %>
+      <% end %>
+    </div>
+  </div>
+</div>

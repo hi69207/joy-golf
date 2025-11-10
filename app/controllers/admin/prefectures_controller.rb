@@ -12,7 +12,7 @@ class Admin::PrefecturesController < ApplicationController
       redirect_to admin_prefectures_path, notice: "都道府県を登録しました。"
     else
       @prefectures = Prefecture.all
-      render 'index'
+      render :index
     end
   end
 
@@ -25,7 +25,7 @@ class Admin::PrefecturesController < ApplicationController
     if @prefecture.update(prefecture_params)
       redirect_to admin_prefectures_path, notice: "更新しました。"
     else
-      render "edit"
+      render :edit
     end
   end
 

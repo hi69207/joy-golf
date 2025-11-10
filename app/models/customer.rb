@@ -8,6 +8,14 @@ class Customer < ApplicationRecord
   belongs_to :prefecture
   has_many :posts, dependent: :destroy
 
+  def customer_state
+    if is_active
+      "有効"
+    else
+      "退会"
+    end
+  end
+
   def get_profile_image
     unless profile_image.attached?
       file_path = Rails.root.join('app/assets/images/no_image.jpg')
