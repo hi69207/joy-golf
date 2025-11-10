@@ -5,7 +5,7 @@ class Customer < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_one_attached :profile_image
-  #belongs_to :prefecture
+  belongs_to :prefecture
   has_many :posts, dependent: :destroy
 
   def get_profile_image

@@ -1,0 +1,12 @@
+ja:
+  devise:
+    sessions:
+      customer:
+        signed_in: "ログインしました。"
+        signed_out: "ログアウトしました。"
+      signed_in: "ログインしました。"
+      signed_out: "ログアウトしました。"
+    failure:
+      admin:
+        unauthenticated: "ログインまたは登録が必要です。"
+      unauthenticated: "ログインまたは登録が必要です。"

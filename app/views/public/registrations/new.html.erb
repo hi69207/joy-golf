@@ -8,6 +8,11 @@
   <%= f.text_field :name, placeholder: "ヤマダ" %>
   </div>
 
+  <div class="form-group">
+    <%= f.label :prefecture_id, "都道府県" %>
+    <%= f.collection_select :prefecture_id, @prefectures, :id, :name, { prompt: "選択してください" }, { class: "form-control" } %>
+  </div>
+
   <div class="field">
     <label>住所</label>
     <%= f.text_field :address, placeholder: "東京都渋谷区代々木神園町0-0" %>

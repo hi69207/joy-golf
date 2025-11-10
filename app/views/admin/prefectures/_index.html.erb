@@ -5,6 +5,8 @@
       <th>都道府県名</th>
       <th>緯度</th>
       <th>経度</th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -14,6 +16,8 @@
         <td><%= prefecture.name %></td>
         <td><%= prefecture.latitude %></td>
         <td><%= prefecture.longitude %></td>
+        <td><%= link_to 'Edit', edit_admin_prefecture_path(prefecture), class: "btn btn-success" %></td>
+        <td><%= link_to 'Destroy', admin_prefecture_path(prefecture), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-danger" %></td>
       </tr>
     <% end %>
   </tbody>

@@ -70,6 +70,7 @@ ActiveRecord::Schema.define(version: 2025_11_09_030753) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.integer "prefecture_id"
     t.string "name", null: false
     t.string "address", null: false
     t.float "history", null: false

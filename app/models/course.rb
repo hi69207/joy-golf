@@ -3,6 +3,14 @@ class Course < ApplicationRecord
   belongs_to :prefecture
   has_many :posts, dependent: :nullify
 
+  def status_text
+    if is_active
+      "有効"
+    else
+      "退会"
+    end
+  end
+
   def get_course_image
     unless course_image.attached?
       file_path = Rails.root.join('app/assets/images/no_image.jpg')

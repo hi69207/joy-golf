@@ -15,6 +15,9 @@
                 <li class="nav-item">
                   <%= link_to "都道府県一覧", admin_prefectures_path %>
                 </li>
+                <li class="nav-item">
+                  <%= link_to "ゴルフコース一覧", admin_courses_path %>
+                </li>
               <% elsif customer_signed_in? %>
                 <li class="nav-item">
                   <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>

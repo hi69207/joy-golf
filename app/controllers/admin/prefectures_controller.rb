@@ -9,7 +9,7 @@ class Admin::PrefecturesController < ApplicationController
   def create
     @prefecture = Prefecture.new(prefecture_params)
     if @prefecture.save
-      redirect_to admin_prefectures_path, notice: "You have created book successfully."
+      redirect_to admin_prefectures_path, notice: "都道府県を登録しました。"
     else
       @prefectures = Prefecture.all
       render 'index'
@@ -17,15 +17,25 @@ class Admin::PrefecturesController < ApplicationController
   end
 
   def edit
+    @prefecture = Prefecture.find(params[:id])
   end
 
   def update
+    @prefecture = Prefecture.find(params[:id])
+    if @prefecture.update(prefecture_params)
+      redirect_to admin_prefectures_path, notice: "更新しました。"
+    else
+      render "edit"
+    end
   end
 
   def destroy
+    @prefecture = Prefecture.find(params[:id])
+    @prefecture.destroy
+    redirect_to admin_prefectures_path, notice: "削除しました。"
   end
 
-    private
+  private
 
   def prefecture_params
     params.require(:prefecture).permit(:name, :latitude, :longitude, :prefecture_image)

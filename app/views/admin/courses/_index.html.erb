@@ -1,0 +1,28 @@
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>コース名</th>
+      <th>都道府県</th>
+      <th>住所</th>
+      <th>緯度</th>
+      <th>経度</th>
+      <th>ステータス</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% courses.each do |course| %>
+      <tr>
+        <td><%= image_tag course.get_course_image, size:'100x100' %></td>
+        <td><%= course.name %></td>
+        <td><%= course.prefecture.name %></td>
+        <td><%= course.address %></td>
+        <td><%= course.latitude %></td>
+        <td><%= course.longitude %></td>
+        <td><%= course.status_text %></td>
+        <td><%= link_to 'show', admin_course_path(course), class: "btn btn-success" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
