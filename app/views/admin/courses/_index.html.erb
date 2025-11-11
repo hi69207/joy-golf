@@ -5,9 +5,11 @@
       <th>コース名</th>
       <th>都道府県</th>
       <th>住所</th>
+      <% if admin_signed_in? %>
       <th>緯度</th>
       <th>経度</th>
       <th>ステータス</th>
+      <% end %>
       <th></th>
     </tr>
   </thead>
@@ -18,10 +20,16 @@
         <td><%= course.name %></td>
         <td><%= course.prefecture.name %></td>
         <td><%= course.address %></td>
+
+        <% if admin_signed_in? %>
         <td><%= course.latitude %></td>
         <td><%= course.longitude %></td>
         <td><%= course.course_state %></td>
         <td><%= link_to 'show', admin_course_path(course), class: "btn btn-success" %></td>
+        <% elsif customer_signed_in? %>
+        <td><%= link_to 'show', course_path(course), class: "btn btn-success" %></td>
+        <% end %>
+        
       </tr>
     <% end %>
   </tbody>

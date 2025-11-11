@@ -5,7 +5,7 @@ class CreatePosts < ActiveRecord::Migration[6.1]
       t.integer :course_id
       t.date :round_day, null: false
       t.integer :score, null: false
-      t.text :sentense, null: false
+      t.text :sentence, null: false
 
       t.timestamps
     end

@@ -12,6 +12,7 @@ class Admin::PrefecturesController < ApplicationController
       redirect_to admin_prefectures_path, notice: "都道府県を登録しました。"
     else
       @prefectures = Prefecture.all
+      flash.now[:alert] = "登録が失敗しました。"
       render :index
     end
   end
@@ -25,6 +26,7 @@ class Admin::PrefecturesController < ApplicationController
     if @prefecture.update(prefecture_params)
       redirect_to admin_prefectures_path, notice: "更新しました。"
     else
+      flash.now[:alert] = "更新が失敗しました。"
       render :edit
     end
   end

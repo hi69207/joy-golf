@@ -14,6 +14,7 @@ class Admin::CoursesController < ApplicationController
     else
       @courses = Course.all
       @prefectures = Prefecture.all
+      flash.now[:alert] = "登録が失敗しました。"
       render :index
     end
   end
@@ -32,6 +33,7 @@ class Admin::CoursesController < ApplicationController
     if @course.update(course_params)
       redirect_to admin_courses_path, notice: "更新しました。"
     else
+      flash.now[:alert] = "更新が失敗しました。"
       render :edit
     end
   end

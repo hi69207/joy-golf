@@ -1,0 +1,68 @@
+  <h1>ゴルフコース</h1>
+
+    <div class='row'>
+      <h2>詳細</h2>
+  		<table class='table'>
+  		  <tr>
+          <td><%= image_tag @course.get_course_image, size:'200x200' %></td>
+          <td><%= @course.name %></td>
+          <td><%= @course.prefecture.name %></td>
+          <td><%= @course.address %></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class='row'>
+      <h2>投稿フォーム</h2>
+
+      <%= render 'layouts/errors', obj: @post %>
+
+      <%= form_with model: [@course, @post], method: :post, local: true do |f| %>
+        <div class="form-group">
+          <%= f.label :round_day, "ラウンド日" %>
+          <%= f.date_field :round_day %>
+        </div>
+        <div class="form-group">
+          <%= f.label :score, "ゴルフスコア" %>
+          <%= f.text_field :score %>
+        </div>
+        <div class="form-group">
+          <%= f.label :sentence, "感想" %>
+          <%= f.text_field :sentence %>
+        </div>
+        <div class="form-group">
+          <%= f.submit '投稿', class: 'btn btn-success' %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class='row'>
+      <h2>投稿一覧</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>氏名</th>
+            <th>都道府県</th>
+            <th>ゴルフ歴</th>
+            <th>ラウンド日</th>
+            <th>ゴルフスコア</th>
+            <th>感想</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @posts.each do |post| %>
+          <tr>
+            <td><%= post.customer.name %></td>
+            <td><%= post.customer.prefecture.name %></td>
+            <td><%= post.customer.history %></td>
+            <td><%= post.round_day %></td>
+            <td><%= post.score %></td>
+            <td><%= post.sentence %></td>
+            <td><%= link_to 'show', course_post_path(post.course, post), class: "btn btn-success" %></td>
+          </tr>
+          <% end %>
+          <%= paginate @posts %>
+        </tbody>
+      </table>
+    </div>

@@ -1,8 +1,6 @@
-<div class="container">
   <h1>マイページ</h1>
-  <div class='row'>
 
-    <div class='col'>
+    <div class='row'>
       <h2>詳細</h2>
   		<table class='table'>
   		  <tr>
@@ -19,5 +17,36 @@
         <%= link_to '編集', customers_information_edit_path(@customer), class: "btn btn-success" %>
       <% end %>
     </div>
-  </div>
-</div>
+
+    <div class='row'>
+      <h2>投稿一覧</h2>
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>コース名</th>
+            <th>都道府県</th>
+            <th>住所</th>
+            <th>ラウンド日</th>
+            <th>ゴルフスコア</th>
+            <th>感想</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @posts.each do |post| %>
+          <tr>
+            <td><%= image_tag post.course.get_course_image, size:'100x100' %></td>
+            <td><%= post.course.name %></td>
+            <td><%= post.course.prefecture.name %></td>
+            <td><%= post.course.address %></td>
+            <td><%= post.round_day %></td>
+            <td><%= post.score %></td>
+            <td><%= post.sentence %></td>
+            <td><%= link_to 'show', course_post_path(post.course, post), class: "btn btn-success" %></td>
+          </tr>
+          <% end %>
+          <%= paginate @posts %>
+        </tbody>
+      </table>
+    </div>

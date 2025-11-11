@@ -1,19 +1,21 @@
-<h2>Log in</h2>
+  <h2>Log in</h2>
 
-<%= form_with model: @admin, url: admin_session_path do |f| %>
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name, autofocus: true %>
-  </div>
+    <div class='row'>
+      <%= form_with model: @admin, url: admin_session_path do |f| %>
+        <div class="field">
+          <%= f.label :name %><br />
+          <%= f.text_field :name, autofocus: true %>
+        </div>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
+        <div class="field">
+          <%= f.label :password %><br />
+          <%= f.password_field :password, autocomplete: "current-password" %>
+        </div>
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
-<% end %>
+        <div class="actions">
+          <%= f.submit "Log in" %>
+        </div>
+      <% end %>
 
-<%= render "admin/shared/links" %>
+      <%= render "admin/shared/links" %>
+    </div>

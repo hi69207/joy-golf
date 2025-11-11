@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     patch "customers/information" => "customers#update"
     patch "customers/withdraw" => "customers#withdraw"
     resources :courses, only: [:index, :show] do
-      resources :posts
+      resources :posts, only: [:index, :create, :show, :edit, :update, :destroy]
     end
   end
 

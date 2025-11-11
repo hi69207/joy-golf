@@ -1,7 +1,11 @@
 class Public::CustomersController < ApplicationController
+  before_action :authenticate_customer!
 
   def show
     @customer = current_customer
+    @posts = @customer.posts.includes(:course => :prefecture)
+                          .order(created_at: :desc) 
+                          .page(params[:page]).per(30)
   end
 
   def withdraw
@@ -20,6 +24,7 @@ class Public::CustomersController < ApplicationController
     if @customer.update(customer_params)
       redirect_to customers_my_page_path, notice: "会員情報を更新しました。"
     else
+      flash.now[:alert] = "更新が失敗しました。"
       render :edit
     end
   end

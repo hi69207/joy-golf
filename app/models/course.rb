@@ -3,6 +3,11 @@ class Course < ApplicationRecord
   belongs_to :prefecture
   has_many :posts, dependent: :nullify
 
+  validates :name, presence:true, length:{maximum:20}, uniqueness: true
+  validates :address, presence:true
+  validates :latitude, presence:true
+  validates :longitude, presence:true
+
   def course_state
     if is_active
       "有効"

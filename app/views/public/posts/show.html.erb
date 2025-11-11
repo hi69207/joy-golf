@@ -1,0 +1,23 @@
+  <h1>ゴルフコース</h1>
+
+    <div class='row'>
+      <h2>投稿詳細</h2>
+  		<table class='table'>
+  		  <tr>
+          <td><%= image_tag @post.course.get_course_image, size:'100x100' %></td>
+          <td><%= @post.course.name %></td>
+          <td><%= @post.course.prefecture.name %></td>
+          <td><%= @post.course.address %></td>
+          <td><%= @post.customer.name %></td>
+          <td><%= @post.customer.prefecture.name %></td>
+          <td><%= @post.customer.history %></td>
+          <td><%= @post.round_day %></td>
+          <td><%= @post.score %></td>
+          <td><%= @post.sentence %></td>
+          <% if @post.customer == current_customer %>
+          <td><%= link_to 'Edit', edit_course_post_path(@post.course, @post), class: "btn btn-sm btn-success" %></td>
+          <td><%= link_to 'Destroy', course_post_path(@post.course, @post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-sm btn-danger"%></td>
+          <% end %>
+        </tr>
+      </table>
+    </div>

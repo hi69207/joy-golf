@@ -8,6 +8,10 @@ class Customer < ApplicationRecord
   belongs_to :prefecture
   has_many :posts, dependent: :destroy
 
+  validates :name, presence:true, length:{maximum:20}, uniqueness: true
+  validates :address, presence:true
+  validates :history, presence:true
+
   def customer_state
     if is_active
       "有効"

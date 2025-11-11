@@ -86,7 +86,7 @@ ActiveRecord::Schema.define(version: 2025_11_09_030753) do
     t.integer "course_id"
     t.date "round_day", null: false
     t.integer "score", null: false
-    t.text "sentense", null: false
+    t.text "sentence", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
