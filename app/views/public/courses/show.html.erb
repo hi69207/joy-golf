@@ -1,68 +1,98 @@
   <h1>ゴルフコース</h1>
 
-    <div class='row'>
+  <div class="row mb-4">
+    <div class="col-12">
       <h2>詳細</h2>
-  		<table class='table'>
-  		  <tr>
-          <td><%= image_tag @course.get_course_image, size:'200x200' %></td>
-          <td><%= @course.name %></td>
-          <td><%= @course.prefecture.name %></td>
-          <td><%= @course.address %></td>
-        </tr>
-      </table>
+      
+      <div class="table-responsive">
+        
+        <table class="table table-bordered text-center">
+          
+          <thead class="thead-light">
+            <tr>
+              <th></th>
+              <th>コース名</th>
+              <th>住所</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="align-middle"><%= image_tag @course.get_course_image, size:'200x200' %></td>
+              <td class="align-middle"><%= @course.name %></td>
+              <td class="align-middle"><%= @course.prefecture.name %> <%= @course.address %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
+  </div>
 
-    <div class='row'>
+  <div class="row mb-4">
+    <div class="col-md-8 offset-md-2">
       <h2>投稿フォーム</h2>
 
       <%= render 'layouts/errors', obj: @post %>
 
       <%= form_with model: [@course, @post], method: :post, local: true do |f| %>
+        
         <div class="form-group">
           <%= f.label :round_day, "ラウンド日" %>
-          <%= f.date_field :round_day %>
+          <%= f.date_field :round_day, class: "form-control" %>
         </div>
+        
         <div class="form-group">
           <%= f.label :score, "ゴルフスコア" %>
-          <%= f.text_field :score %>
+          <%= f.text_field :score, class: "form-control" %>
         </div>
+        
         <div class="form-group">
           <%= f.label :sentence, "感想" %>
-          <%= f.text_field :sentence %>
-        </div>
+          <%= f.text_field :sentence, class: "form-control" %>
+          </div>
+        
         <div class="form-group">
           <%= f.submit '投稿', class: 'btn btn-success' %>
         </div>
+        
       <% end %>
     </div>
+  </div>
 
-    <div class='row'>
+  <div class="row">
+    <div class="col-12">
       <h2>投稿一覧</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>氏名</th>
-            <th>都道府県</th>
-            <th>ゴルフ歴</th>
-            <th>ラウンド日</th>
-            <th>ゴルフスコア</th>
-            <th>感想</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @posts.each do |post| %>
-          <tr>
-            <td><%= post.customer.name %></td>
-            <td><%= post.customer.prefecture.name %></td>
-            <td><%= post.customer.history %></td>
-            <td><%= post.round_day %></td>
-            <td><%= post.score %></td>
-            <td><%= post.sentence %></td>
-            <td><%= link_to 'show', course_post_path(post.course, post), class: "btn btn-success" %></td>
-          </tr>
-          <% end %>
-          <%= paginate @posts %>
-        </tbody>
-      </table>
+      
+      <div class="table-responsive">
+        <table class="table table-bordered text-center">
+          
+          <thead class="thead-light">
+            <tr>
+              <th>ゴルファー名</th>
+              <th>出身地</th>
+              <th>ゴルフ歴（年）</th>
+              <th>ラウンド日</th>
+              <th>ゴルフスコア</th>
+              <th class="w-25">感想</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @posts.each do |post| %>
+            <tr>
+              <td class="align-middle"><%= post.customer.name %></td>
+              <td class="align-middle"><%= post.customer.prefecture.name %></td>
+              <td class="align-middle"><%= post.customer.history %></td>
+              <td class="align-middle"><%= post.round_day %></td>
+              <td class="align-middle"><%= post.score %></td>
+              <td class="align-middle"><%= post.sentence %></td>
+              <td class="align-middle"><%= link_to '詳細', course_post_path(post.course, post), class: "btn btn-success" %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div> <div class="d-flex justify-content-center">
+        <%= paginate @posts %>
+      </div>
+      
     </div>
+  </div>
