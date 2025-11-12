@@ -25,6 +25,7 @@
         
         <div class="form-group">
           <%= f.submit '更新', class: 'btn btn-success' %>
+          <%= link_to '戻る', course_post_path(@post.course, @post), class: "btn btn-secondary" %>
         </div>
         
       <% end %>
