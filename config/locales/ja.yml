@@ -3,9 +3,9 @@ ja:
     registrations:
       customer:
         signed_up: "サインアップしました。"
-        invalid: "名前またはパスワードが正しくありません。"
+        invalid: "ゴルファー名またはパスワードが正しくありません。"
       signed_up: "サインアップしました。"
-      invalid: "名前またはパスワードが正しくありません。"
+      invalid: "ゴルファー名またはパスワードが正しくありません。"
     sessions:
       customer:
         signed_in: "ログインしました。"
@@ -16,8 +16,43 @@ ja:
       admin:
         unauthenticated: "ログインまたは登録が必要です。"
       customer:
-        invalid: "名前またはパスワードが正しくありません。"
-        not_found_in_database: "名前またはパスワードが正しくありません。"
+        invalid: "ゴルファー名またはパスワードが正しくありません。"
+        not_found_in_database: "ゴルファー名またはパスワードが正しくありません。"
       unauthenticated: "ログインまたは登録が必要です。"
       invalid: "名前またはパスワードが正しくありません。"
       not_found_in_database: "名前またはパスワードが正しくありません。"
+  errors:
+    messages:
+      blank: "を入力してください"
+      required: "を入力してください"
+      not_saved:
+        one: "登録内容に1件のエラーがありました："
+        other: "登録内容に%{count}件のエラーがありました："
+      taken: "はすでに使用されています"
+    template:
+      header:
+        one: "登録内容に1件のエラーがありました："
+        other: "登録内容に%{count}件のエラーがありました："
+  activerecord:
+    attributes:
+      customer:
+        name: "ゴルファー名"
+        address: "住所"
+        history: "ゴルフ歴（年）"
+        email: "メールアドレス"
+        password: "パスワード"
+        prefecture: "都道府県"
+      prefecture:
+        name: "都道府県名"
+        latitude: "緯度"
+        longitude: "経度"
+      course:
+        name: "コース名"
+        address: "住所"
+        latitude: "緯度"
+        longitude: "経度"
+        prefecture: "都道府県"
+      post:
+        round_day: "ラウンド日"
+        score: "ゴルフスコア"
+        sentence: "感想"

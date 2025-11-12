@@ -3,7 +3,7 @@ class Prefecture < ApplicationRecord
   has_many :customers, dependent: :nullify
   has_many :courses, dependent: :nullify
 
-  validates :name, length:{maximum:20}, uniqueness: true
+  validates :name, presence: true, length:{maximum:20}, uniqueness: true
   validates :latitude, presence:true
   validates :longitude, presence:true
 

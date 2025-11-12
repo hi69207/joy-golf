@@ -1,9 +1,17 @@
 class Public::RegistrationsController < Devise::RegistrationsController
   before_action :configure_sign_up_params, only: [:create]
 
-def new
+  def new
     @prefectures = Prefecture.all
-    super # Deviseの元のnewアクションを呼び出す
+    super
+  end
+
+  def create
+    super do |resource|
+      unless resource.persisted?
+        @prefectures = Prefecture.all
+      end
+    end
   end
 
   protected

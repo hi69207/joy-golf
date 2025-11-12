@@ -17,8 +17,8 @@
           <td class="align-middle"><%= prefecture.name %></td>
           <td class="align-middle"><%= prefecture.latitude %></td>
           <td class="align-middle"><%= prefecture.longitude %></td>
-          <td class="align-middle"><%= link_to 'Edit', edit_admin_prefecture_path(prefecture), class: "btn btn-success" %></td>
-          <td class="align-middle"><%= link_to 'Destroy', admin_prefecture_path(prefecture), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-danger" %></td>
+          <td class="align-middle"><%= link_to '編集', edit_admin_prefecture_path(prefecture), class: "btn btn-success" %></td>
+          <td class="align-middle"><%= link_to '削除', admin_prefecture_path(prefecture), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-danger" %></td>
         </tr>
       <% end %>
     </tbody>

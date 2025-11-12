@@ -1,21 +1,29 @@
-  <h2>Log in</h2>
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
 
-    <div class='row'>
+      <h2>ログイン</h2>
+
       <%= form_with model: @admin, url: admin_session_path do |f| %>
-        <div class="field">
+        
+        <div class="form-group">
           <%= f.label :name %><br />
-          <%= f.text_field :name, autofocus: true %>
+          <%= f.text_field :name, autofocus: true, class: "form-control" %>
         </div>
-
-        <div class="field">
+        
+        <div class="form-group">
           <%= f.label :password %><br />
-          <%= f.password_field :password, autocomplete: "current-password" %>
+          <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
         </div>
 
-        <div class="actions">
-          <%= f.submit "Log in" %>
+        <div class="form-group">
+          <%= f.submit "Log in", class: "btn btn-success btn-block" %>
         </div>
+        
       <% end %>
 
-      <%= render "admin/shared/links" %>
+      <div class="form-group text-center">
+        <%= render "admin/shared/links" %>
+      </div>
+      
     </div>
+  </div>

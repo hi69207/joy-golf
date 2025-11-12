@@ -8,7 +8,11 @@ class Public::PostsController < ApplicationController
     if @post.save
       redirect_to course_post_path(@course, @post), notice: "投稿しました。"
     else
-      redirect_to course_path(@course), alert: "投稿が失敗しました。"
+      @posts = @course.posts.includes(:customer => :prefecture)
+                            .order(created_at: :desc) 
+                            .page(params[:page]).per(30)
+      flash.now[:alert] = "投稿が失敗しました。"
+      render 'public/courses/show'
     end
   end
 
@@ -26,6 +30,7 @@ class Public::PostsController < ApplicationController
     if @post.update(post_params)
       redirect_to course_post_path(@post.course, @post), notice: "更新しました。"
     else
+      @course = @post.course
       flash.now[:alert] = "更新が失敗しました。"
       render :edit
     end
