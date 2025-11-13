@@ -1,6 +1,6 @@
 require "test_helper"
 
-class PrefecturesControllerTest < ActionDispatch::IntegrationTest
+class Admin::PrefecturesControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end

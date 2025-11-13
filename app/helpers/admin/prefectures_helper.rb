@@ -1,2 +1,2 @@
-module PrefecturesHelper
+module Admin::PrefecturesHelper
 end
