@@ -42,6 +42,7 @@ ja:
         email: "メールアドレス"
         password: "パスワード"
         prefecture: "都道府県"
+        remember_me: "ログイン状態を保持する"
       prefecture:
         name: "都道府県名"
         latitude: "緯度"
