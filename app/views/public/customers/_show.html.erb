@@ -1,0 +1,39 @@
+  <div class="row mb-4">
+    <div class="col-12">
+      <h2>詳細</h2>
+      
+      <div class="table-responsive">
+        
+        <table class="table table-bordered text-center">
+          
+          <thead class="thead-light">
+            <tr>
+              <th>プロフィール画像</th>
+              <th>ゴルファー名</th>
+              <th class="w-15">住所</th>
+              <th>ゴルフ歴（年）</th>
+              <th class="w-15">メールアドレス</th>
+              <th>会員ステータス</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="align-middle"><%= image_tag customer.get_profile_image, size:'200x200' %></td>
+              <td class="align-middle"><%= customer.name %></td>
+              <td class="align-middle"><%= customer.prefecture.name %> <%= customer.address %></td>
+              <td class="align-middle"><%= customer.history %></td>
+              <td class="align-middle"><%= customer.email %></td>
+              <td class="align-middle"><%= customer.customer_state %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <% if admin_signed_in? %>
+        <%= link_to '編集', edit_admin_customer_path(customer), class: "btn btn-success" %></td>
+      <% elsif customer_signed_in? %>
+        <%= link_to '編集', customers_information_edit_path(customer), class: "btn btn-success" %></td>
+      <% end %>
+
+    </div>
+  </div>

@@ -1,0 +1,40 @@
+  <div class="row">
+    <div class="col-12">
+      <h2>投稿一覧</h2>
+      
+      <div class="table-responsive">
+        <table class="table table-bordered text-center">
+          
+          <thead class="thead-light">
+            <tr>
+              <th></th>
+              <th>コース名</th>
+              <th class="w-15">住所</th>
+              <th>ラウンド日</th>
+              <th>ゴルフスコア</th>
+              <th class="w-15">感想</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% posts.each do |post| %>
+            <tr>
+              <td class="align-middle"><%= image_tag post.course.get_course_image, size:'100x100' %></td>
+              <td class="align-middle"><%= post.course.name %></td>
+              <td class="align-middle"><%= post.course.prefecture.name %> <%= post.course.address %></td>
+              <td class="align-middle"><%= post.round_day %></td>
+              <td class="align-middle"><%= post.score %></td>
+              <td class="align-middle"><%= post.sentence %></td>
+              <td class="align-middle"><%= link_to '詳細', course_post_path(post.course, post), class: "btn btn-success" %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="d-flex justify-content-center">
+        <%= paginate posts %>
+      </div>
+      
+    </div>
+  </div>

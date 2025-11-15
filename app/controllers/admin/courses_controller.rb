@@ -21,6 +21,9 @@ class Admin::CoursesController < ApplicationController
 
   def show
     @course = Course.find(params[:id])
+    @posts = @course.posts.includes(:customer => :prefecture)
+                          .order(created_at: :desc) 
+                          .page(params[:page]).per(30)
   end
 
   def edit

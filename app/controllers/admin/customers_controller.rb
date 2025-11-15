@@ -1,0 +1,36 @@
+class Admin::CustomersController < ApplicationController
+  before_action :authenticate_admin!
+
+  def index
+    @customers = Customer.all
+  end
+
+  def show
+    @customer = Customer.find(params[:id])
+    @posts = @customer.posts.includes(:course => :prefecture)
+                          .order(created_at: :desc) 
+                          .page(params[:page]).per(30)
+  end
+
+  def edit
+    @customer = Customer.find(params[:id])
+    @prefectures = Prefecture.all
+  end
+
+  def update
+    @customer = Customer.find(params[:id])
+    if @customer.update(customer_params)
+      redirect_to admin_customer_path(@customer), notice: "会員情報を更新しました。"
+    else
+      @prefectures = Prefecture.all
+      flash.now[:alert] = "更新が失敗しました。"
+      render :edit
+    end
+  end
+
+  private
+
+  def customer_params
+    params.require(:customer).permit(:prefecture_id, :name, :address, :history, :email, :is_active, :profile_image)
+  end
+end
