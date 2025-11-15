@@ -12,10 +12,8 @@ Rails.application.routes.draw do
   scope module: :public do
     root to: "homes#about"
     get "top" => "homes#top"
-    get "customers/my_page" => "customers#show"
-    get "customers/information/edit" => "customers#edit"
-    patch "customers/information" => "customers#update"
-    patch "customers/withdraw" => "customers#withdraw"
+    delete "customers/withdraw" => "customers#withdraw", as: 'customers_withdraw'
+    resources :customers, only: [:show, :edit, :update]
     resources :courses, only: [:index, :show] do
       resources :posts, only: [:index, :create, :show, :edit, :update, :destroy]
     end

@@ -20,12 +20,24 @@
             <% posts.each do |post| %>
             <tr>
               <td class="align-middle"><%= image_tag post.course.get_course_image, size:'100x100' %></td>
-              <td class="align-middle"><%= post.course.name %></td>
+
+              <% if admin_signed_in? %>
+                <td class="align-middle"><%= link_to post.course.name, admin_course_path(post.course) %></td>
+              <% elsif customer_signed_in? %>
+                <td class="align-middle"><%= link_to post.course.name, course_path(post.course) %></td>
+              <% end %>
+
               <td class="align-middle"><%= post.course.prefecture.name %> <%= post.course.address %></td>
               <td class="align-middle"><%= post.round_day %></td>
               <td class="align-middle"><%= post.score %></td>
               <td class="align-middle"><%= post.sentence %></td>
-              <td class="align-middle"><%= link_to '詳細', course_post_path(post.course, post), class: "btn btn-success" %></td>
+
+              <% if admin_signed_in? %>
+                <td class="align-middle"><%= link_to '詳細', admin_course_post_path(post.course, post), class: "btn btn-success" %></td>
+              <% elsif customer_signed_in? %>
+                <td class="align-middle"><%= link_to '詳細', course_post_path(post.course, post), class: "btn btn-success" %></td>
+              <% end %>
+
             </tr>
             <% end %>
           </tbody>

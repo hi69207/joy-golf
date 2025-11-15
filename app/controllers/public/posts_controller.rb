@@ -39,7 +39,7 @@ class Public::PostsController < ApplicationController
   def destroy
     @post = Post.find(params[:id])
     @post.destroy
-    redirect_to customers_my_page_path, notice: "削除しました。"
+    redirect_to customer_path(current_customer), notice: "削除しました。"
   end
 
   private

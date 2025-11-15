@@ -19,7 +19,12 @@
           <tbody>
             <% posts.each do |post| %>
             <tr>
-              <td class="align-middle"><%= post.customer.name %></td>
+              <% if admin_signed_in? %>
+                <td class="align-middle"><%= link_to post.customer.name, admin_customer_path(post.customer) %></td>
+              <% elsif customer_signed_in? %>
+                <td class="align-middle"><%= link_to post.customer.name, customer_path(post.customer) %></td>
+              <% end %>
+
               <td class="align-middle"><%= post.customer.prefecture.name %></td>
               <td class="align-middle"><%= post.customer.history %></td>
               <td class="align-middle"><%= post.round_day %></td>

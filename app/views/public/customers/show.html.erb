@@ -1,4 +1,8 @@
-  <h1>マイページ</h1>
+  <% if @customer == current_customer %>
+    <h1>マイページ</h1>
+  <% else %>
+    <h1>会員ページ</h1>
+  <% end %>
 
   <%= render 'show', customer: @customer %>
 

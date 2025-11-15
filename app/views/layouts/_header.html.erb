@@ -32,7 +32,7 @@
                 <%= link_to "About", root_path, class: "nav-link" %>
               </li>
               <li class="nav-item">
-                <%= link_to "マイページ", customers_my_page_path, class: "nav-link" %>
+                <%= link_to "マイページ", customer_path(current_customer), class: "nav-link" %>
               </li>
               <li class="nav-item">
                 <%= link_to "ゴルフコース一覧", courses_path, class: "nav-link" %>
