@@ -13,7 +13,7 @@ class Customer < ApplicationRecord
   validates :history, presence:true
 
   def customer_state
-    if is_active
+    if is_active == true
       "有効"
     else
       "退会"
