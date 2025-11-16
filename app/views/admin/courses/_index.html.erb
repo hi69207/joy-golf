@@ -6,11 +6,14 @@
         <th></th>
         <th>コース名</th>
         <th>住所</th>
+        <th>投稿数</th>
+
         <% if admin_signed_in? %>
         <th>緯度</th>
         <th>経度</th>
         <th>ステータス</th>
         <% end %>
+        
         <th></th>
       </tr>
     </thead>
@@ -21,6 +24,7 @@
           <td class="align-middle"><%= image_tag course.get_course_image, size:'100x100' %></td>
           <td class="align-middle"><%= course.name %></td>
           <td class="align-middle"><%= course.prefecture.name %> <%= course.address %></td>
+          <td class="align-middle"><%= course.posts.count %></td>
 
           <% if admin_signed_in? %>
             <td class="align-middle"><%= course.latitude %></td>

@@ -57,3 +57,5 @@ ja:
         round_day: "ラウンド日"
         score: "ゴルフスコア"
         sentence: "感想"
+      post_comment:
+        comment: "コメント"

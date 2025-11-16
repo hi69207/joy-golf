@@ -50,11 +50,10 @@
 
       <% if admin_signed_in? %>
         <%= link_to '編集', edit_admin_course_post_path(post.course, @post), class: "btn btn-sm btn-success" %>
-        <%= link_to '削除', admin_course_post_path(post.course, post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-sm btn-danger"%>
+        <%= link_to '削除', admin_course_post_path(post.course, post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-sm btn-danger" %>
       <% elsif customer_signed_in? && post.customer == current_customer %>
         <%= link_to '編集', edit_course_post_path(post.course, @post), class: "btn btn-sm btn-success" %>
-        <%= link_to '削除', course_post_path(post.course, post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-sm btn-danger"%>
+        <%= link_to '削除', course_post_path(post.course, post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-sm btn-danger" %>
       <% end %>
-
     </div>
   </div>

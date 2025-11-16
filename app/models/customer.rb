@@ -7,6 +7,7 @@ class Customer < ApplicationRecord
   has_one_attached :profile_image
   belongs_to :prefecture
   has_many :posts, dependent: :destroy
+  has_many :post_comments, dependent: :destroy
 
   validates :name, presence:true, length:{maximum:20}, uniqueness: true
   validates :address, presence:true

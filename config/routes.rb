@@ -15,7 +15,9 @@ Rails.application.routes.draw do
     delete "customers/withdraw" => "customers#withdraw", as: 'customers_withdraw'
     resources :customers, only: [:show, :edit, :update]
     resources :courses, only: [:index, :show] do
-      resources :posts, only: [:index, :create, :show, :edit, :update, :destroy]
+      resources :posts, only: [:index, :create, :show, :edit, :update, :destroy] do
+        resources :post_comments, only: [:create, :destroy]
+      end
     end
   end
 
@@ -24,7 +26,9 @@ Rails.application.routes.draw do
     get "top" => "homes#top"
     resources :customers, only: [:index, :show, :edit, :update]
     resources :courses, only: [:index, :show, :create, :edit, :update] do
-      resources :posts, only: [:show, :edit, :update, :destroy]
+      resources :posts, only: [:show, :edit, :update, :destroy] do
+        resources :post_comments, only: [:destroy]
+      end
     end
     resources :prefectures, only: [:index, :create, :edit, :update, :destroy]
   end
