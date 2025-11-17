@@ -23,4 +23,18 @@ class Course < ApplicationRecord
     end
       course_image
   end
+
+  def self.looks(search, word)
+    if search == "perfect_match"
+      @course = Course.where("name LIKE?", "#{word}")
+    elsif search == "forward_match"
+      @course = Course.where("name LIKE?","#{word}%")
+    elsif search == "backward_match"
+      @course = Course.where("name LIKE?","%#{word}")
+    elsif search == "partial_match"
+      @course = Course.where("name LIKE?","%#{word}%")
+    else
+      @course = Course.all
+    end
+  end
 end

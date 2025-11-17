@@ -19,6 +19,7 @@ Rails.application.routes.draw do
         resources :post_comments, only: [:create, :destroy]
       end
     end
+    get "search" => "searches#search"
   end
 
   namespace :admin do

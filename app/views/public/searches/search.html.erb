@@ -1,0 +1,65 @@
+  <div class="row mb-4">
+    <div class="col-12">
+
+      <table class="table table-bordered text-center">
+
+        <% if @range == "ゴルファー名" %>
+
+          <h2>ゴルファー名 "<%= @word %>" の検索結果</h2>
+          <thead class="thead-light">
+            <tr>
+              <th>プロフィール画像</th>
+              <th>ゴルファー名</th>
+              <th>出身地</th>
+              <th>ゴルフ歴（年）</th>
+              <th>投稿数</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <% @customers.each do |customer| %>
+
+            <tr>
+              <td class="align-middle"><%= image_tag customer.get_profile_image, size: '100x100' %></td>
+              <td class="align-middle"><%= link_to customer.name, customer_path(customer) %></td>
+              <td class="align-middle"><%= customer.prefecture.name %></td>
+              <td class="align-middle"><%= customer.history %></td>
+              <td class="align-middle"><%= customer.posts.count %></td>
+            </tr>
+
+            <% end %>
+
+          </tbody>
+
+        <% else %>
+
+          <h2>ゴルフコース名 "<%= @word %>" の検索結果</h2>
+          <thead class="thead-light">
+            <tr>
+              <th></th>
+              <th>ゴルフコース名</th>
+              <th>住所</th>
+              <th>投稿数</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <% @courses.each do |course| %>
+
+            <tr>
+              <td class="align-middle"><%= image_tag course.get_course_image, size: '200x200' %></td>
+              <td class="align-middle"><%= link_to course.name, course_path(course) %></td>
+              <td class="align-middle"><%= course.prefecture.name %> <%= course.address %></td>
+              <td class="align-middle"><%= course.posts.count %></td>
+            </tr>
+
+            <% end %>
+
+          </tbody>
+        <% end %>
+      </table>
+
+    </div>
+  </div>
