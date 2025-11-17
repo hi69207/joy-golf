@@ -1,0 +1,32 @@
+  <h1>会員</h1>
+
+  <div class="row mb-4">
+    <div class="col-12">
+      <h2>一覧</h2>
+      
+      <div class="table-responsive">
+        
+        <table class="table table-bordered text-center">
+          
+          <thead class="thead-light">
+            <tr>
+              <th>ゴルファー名</th>
+              <th class="w-15">住所</th>
+              <th class="w-15">メールアドレス</th>
+              <th>会員ステータス</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @customers.each do |customer| %>
+              <tr>
+                <td class="align-middle"><%= customer.name %></td>
+                <td class="align-middle"><%= customer.prefecture.name %> <%= customer.address %></td>
+                <td class="align-middle"><%= customer.email %></td>
+                <td class="align-middle"><%= customer.customer_state %></td>
+                <td class="align-middle"><%= link_to '詳細', admin_customer_path(customer), class: "btn btn-success" %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>

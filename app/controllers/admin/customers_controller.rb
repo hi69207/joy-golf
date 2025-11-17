@@ -1,6 +1,9 @@
-class Public::CustomersController < ApplicationController
-  before_action :authenticate_customer!
-  before_action :ensure_currect_customer, only: [:edit, :update]
+class Admin::CustomersController < ApplicationController
+  before_action :authenticate_admin!
+
+  def index
+    @customers = Customer.all
+  end
 
   def show
     @customer = Customer.find(params[:id])
@@ -9,19 +12,15 @@ class Public::CustomersController < ApplicationController
                           .page(params[:page]).per(30)
   end
 
-  def withdraw
-    current_customer.update!(is_active: false)
-    reset_session
-    redirect_to new_customer_session_path, notice: "退会手続きが完了しました。"
-  end
-  
   def edit
+    @customer = Customer.find(params[:id])
     @prefectures = Prefecture.all
   end
 
   def update
+    @customer = Customer.find(params[:id])
     if @customer.update(customer_params)
-      redirect_to customer_path(@customer), notice: "会員情報を更新しました。"
+      redirect_to admin_customer_path(@customer), notice: "会員情報を更新しました。"
     else
       @prefectures = Prefecture.all
       flash.now[:alert] = "更新が失敗しました。"
@@ -33,12 +32,5 @@ class Public::CustomersController < ApplicationController
 
   def customer_params
     params.require(:customer).permit(:prefecture_id, :name, :address, :history, :email, :is_active, :profile_image)
-  end
-
-  def ensure_currect_customer
-    @customer = Customer.find(params[:id])
-    unless @customer == current_customer
-      redirect_to customer_path(current_customer)
-    end
   end
 end

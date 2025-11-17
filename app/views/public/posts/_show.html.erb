@@ -1,0 +1,59 @@
+  <div class="row">
+    <div class="col-12">
+      <h2>投稿詳細</h2>
+
+      <div class="table-responsive">
+        
+        <table class="table table-bordered text-center">
+          
+          <thead class="thead-light">
+            <tr>
+              <th></th>
+              <th class="w-15">コース名</th>
+              <th class="w-15">住所</th>
+              <th>ゴルファー名</th>
+              <th>出身地</th>
+              <th>ゴルフ歴（年）</th>
+              <th>ラウンド日</th>
+              <th>ゴルフスコア</th>
+              <th class="w-15">感想</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="align-middle"><%= image_tag post.course.get_course_image, size:'100x100' %></td>
+
+              <% if admin_signed_in? %>
+                <td class="align-middle"><%= link_to post.course.name, admin_course_path(post.course) %></td>
+              <% elsif customer_signed_in? %>
+                <td class="align-middle"><%= link_to post.course.name, course_path(post.course) %></td>
+              <% end %>
+
+              <td class="align-middle"><%= post.course.prefecture.name %> <%= post.course.address %></td>
+
+              <% if admin_signed_in? %>
+                <td class="align-middle"><%= link_to post.customer.name, admin_customer_path(post.customer) %></td>
+              <% elsif customer_signed_in? %>
+                <td class="align-middle"><%= link_to post.customer.name, customer_path(post.customer) %></td>
+              <% end %>
+
+              <td class="align-middle"><%= post.customer.prefecture.name %></td>
+              <td class="align-middle"><%= post.customer.history %></td>
+              <td class="align-middle"><%= post.round_day %></td>
+              <td class="align-middle"><%= post.score %></td>
+              <td class="align-middle"><%= post.sentence %></td>
+            </tr>
+          </tbody>
+        </table>
+        
+      </div>
+
+      <% if admin_signed_in? %>
+        <%= link_to '編集', edit_admin_course_post_path(post.course, @post), class: "btn btn-sm btn-success" %>
+        <%= link_to '削除', admin_course_post_path(post.course, post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-sm btn-danger" %>
+      <% elsif customer_signed_in? && post.customer == current_customer %>
+        <%= link_to '編集', edit_course_post_path(post.course, @post), class: "btn btn-sm btn-success" %>
+        <%= link_to '削除', course_post_path(post.course, post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-sm btn-danger" %>
+      <% end %>
+    </div>
+  </div>

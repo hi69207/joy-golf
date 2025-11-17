@@ -1,0 +1,51 @@
+  <div class="row">
+    <div class="col-12">
+      <h2>投稿一覧</h2>
+      
+      <div class="table-responsive">
+        <table class="table table-bordered text-center">
+          
+          <thead class="thead-light">
+            <tr>
+              <th>ゴルファー名</th>
+              <th>出身地</th>
+              <th>ゴルフ歴（年）</th>
+              <th>ラウンド日</th>
+              <th>ゴルフスコア</th>
+              <th class="w-25">感想</th>
+              <th>コメント数</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% posts.each do |post| %>
+            <tr>
+              <% if admin_signed_in? %>
+                <td class="align-middle"><%= link_to post.customer.name, admin_customer_path(post.customer) %></td>
+              <% elsif customer_signed_in? %>
+                <td class="align-middle"><%= link_to post.customer.name, customer_path(post.customer) %></td>
+              <% end %>
+
+              <td class="align-middle"><%= post.customer.prefecture.name %></td>
+              <td class="align-middle"><%= post.customer.history %></td>
+              <td class="align-middle"><%= post.round_day %></td>
+              <td class="align-middle"><%= post.score %></td>
+              <td class="align-middle"><%= post.sentence %></td>
+              <td class="align-middle"><%= post.post_comments.count %></td>
+
+              <% if admin_signed_in? %>
+                <td class="align-middle"><%= link_to '詳細', admin_course_post_path(post.course, post), class: "btn btn-success" %></td>
+              <% elsif customer_signed_in? %>
+                <td class="align-middle"><%= link_to '詳細', course_post_path(post.course, post), class: "btn btn-success" %></td>
+              <% end %>
+
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div> <div class="d-flex justify-content-center">
+        <%= paginate posts %>
+      </div>
+      
+    </div>
+  </div>

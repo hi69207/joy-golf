@@ -10,15 +10,16 @@ Rails.application.routes.draw do
   }
 
   scope module: :public do
-    root to: "homes#top"
-    get "about" => "homes#about"
-    get "customers/my_page" => "customers#show"
-    get "customers/information/edit" => "customers#edit"
-    patch "customers/information" => "customers#update"
-    patch "customers/withdraw" => "customers#withdraw"
+    root to: "homes#about"
+    get "top" => "homes#top"
+    delete "customers/withdraw" => "customers#withdraw", as: 'customers_withdraw'
+    resources :customers, only: [:show, :edit, :update]
     resources :courses, only: [:index, :show] do
-      resources :posts, only: [:index, :create, :show, :edit, :update, :destroy]
+      resources :posts, only: [:index, :create, :show, :edit, :update, :destroy] do
+        resources :post_comments, only: [:create, :destroy]
+      end
     end
+    get "search" => "searches#search"
   end
 
   namespace :admin do
@@ -26,7 +27,9 @@ Rails.application.routes.draw do
     get "top" => "homes#top"
     resources :customers, only: [:index, :show, :edit, :update]
     resources :courses, only: [:index, :show, :create, :edit, :update] do
-      resources :posts, only: [:show, :edit, :update, :destroy]
+      resources :posts, only: [:show, :edit, :update, :destroy] do
+        resources :post_comments, only: [:destroy]
+      end
     end
     resources :prefectures, only: [:index, :create, :edit, :update, :destroy]
   end
