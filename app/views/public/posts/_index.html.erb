@@ -21,9 +21,9 @@
           <td class="align-middle"><%= image_tag post.course.get_course_image, size:'100x100' %></td>
 
           <% if admin_signed_in? %>
-          <td class="align-middle"><%= link_to post.course.name, admin_course_path(post.course) %></td>
+            <td class="align-middle"><%= link_to post.course.name, admin_course_path(post.course) %></td>
           <% elsif customer_signed_in? %>
-          <td class="align-middle"><%= link_to post.course.name, course_path(post.course) %></td>
+            <td class="align-middle"><%= link_to post.course.name, course_path(post.course) %></td>
           <% end %>
 
           <td class="align-middle"><%= post.course.prefecture.name %> <%= post.course.address %></td>
