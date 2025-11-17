@@ -16,6 +16,10 @@ class Public::PostCommentsController < ApplicationController
 
   def destroy
     @post_comment = PostComment.find(params[:id])
+    unless @post_comment.customer == current_customer
+      redirect_to customer_path(current_customer), alert: "ご自身以外のコメントは編集・削除できません。"
+      return
+    end
     @post_comment.destroy
     redirect_to course_post_path(@post_comment.post.course, @post_comment.post), notice: "コメントを削除しました。"
   end
@@ -25,5 +29,4 @@ class Public::PostCommentsController < ApplicationController
   def post_comment_params
     params.require(:post_comment).permit(:comment)
   end
-
 end

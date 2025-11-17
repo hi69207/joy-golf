@@ -15,7 +15,9 @@ Rails.application.routes.draw do
     delete "customers/withdraw" => "customers#withdraw", as: 'customers_withdraw'
     resources :customers, only: [:show, :edit, :update]
     resources :courses, only: [:index, :show] do
-      resources :posts, only: [:index, :create, :show, :edit, :update, :destroy] do
+      get 'posts', to: redirect('/courses/%{course_id}')
+      resources :posts, only: [:create, :show, :edit, :update, :destroy] do
+        get 'post_comments', to: redirect('/courses/%{course_id}/posts/%{post_id}')
         resources :post_comments, only: [:create, :destroy]
       end
     end
