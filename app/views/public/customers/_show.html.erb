@@ -26,9 +26,9 @@
       </div>
 
       <% if admin_signed_in? %>
-        <%= link_to '編集', edit_admin_customer_path(customer), class: "btn btn-success" %></td>
+        <%= link_to '編集', edit_admin_customer_path(customer), class: "btn btn-success" %>
       <% elsif customer_signed_in? && customer == current_customer %>
-        <%= link_to '編集', edit_customer_path(customer), class: "btn btn-success" %></td>
+        <%= link_to '編集', edit_customer_path(customer), class: "btn btn-success" %>
       <% end %>
 
     </div>
