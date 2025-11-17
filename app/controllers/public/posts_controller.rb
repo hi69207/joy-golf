@@ -1,5 +1,6 @@
 class Public::PostsController < ApplicationController
   before_action :authenticate_customer!
+  before_action :ensure_currect_customer, only: [:edit, :update, :destroy]
 
   def create
     @course = Course.find(params[:course_id])
@@ -22,12 +23,10 @@ class Public::PostsController < ApplicationController
   end
 
   def edit
-    @post = Post.find(params[:id])
     @course = @post.course
   end
 
   def update
-    @post = Post.find(params[:id])
     if @post.update(post_params)
       redirect_to course_post_path(@post.course, @post), notice: "更新しました。"
     else
@@ -38,7 +37,6 @@ class Public::PostsController < ApplicationController
   end
 
   def destroy
-    @post = Post.find(params[:id])
     @post.destroy
     redirect_to customer_path(current_customer), notice: "削除しました。"
   end
@@ -47,5 +45,12 @@ class Public::PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:round_day, :score, :sentence)
+  end
+
+  def ensure_currect_customer
+    @post = Post.find(params[:id])
+    unless @post.customer == current_customer
+      redirect_to customer_path(current_customer), alert: "ご自身以外の投稿は編集・削除できません。"
+    end
   end
 end
