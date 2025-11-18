@@ -14,6 +14,7 @@
               <th>ラウンド日</th>
               <th>ゴルフスコア</th>
               <th class="w-15">感想</th>
+              <th>コース難易度評価</th>
               <th>コメント数</th>
               <th></th>
             </tr>
@@ -32,8 +33,15 @@
 
               <td class="align-middle"><%= post.course.prefecture.name %> <%= post.course.address %></td>
               <td class="align-middle"><%= post.round_day %></td>
-              <td class="align-middle"><%= post.score %></td>
+              <td class="align-middle"><%= post.golf_score %></td>
               <td class="align-middle"><%= post.sentence %></td>
+              <td class="align-middle">
+                <div class="score-display" 
+                  data-score="<%= post.score %>"
+                  data-star-on="<%= asset_path('star-on.png') %>"
+                  data-star-off="<%= asset_path('star-off.png') %>">
+                </div>
+              </td>
               <td class="align-middle"><%= post.post_comments.count %></td>
 
               <% if admin_signed_in? %>

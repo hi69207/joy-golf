@@ -44,7 +44,7 @@ class Public::PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:round_day, :score, :sentence)
+    params.require(:post).permit(:round_day, :golf_score, :sentence, :score)
   end
 
   def ensure_currect_customer

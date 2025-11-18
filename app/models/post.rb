@@ -4,6 +4,7 @@ class Post < ApplicationRecord
   has_many :post_comments, dependent: :destroy
 
   validates :round_day, presence:true
-  validates :score, presence:true, length:{maximum:3}
+  validates :golf_score, presence:true, length:{maximum:3}
   validates :sentence, presence:true, length:{maximum:200}
+  validates :score, presence:true
 end

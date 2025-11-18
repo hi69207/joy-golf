@@ -13,6 +13,7 @@
         <th>ラウンド日</th>
         <th>ゴルフスコア</th>
         <th class="w-15">感想</th>
+        <th>コース難易度評価</th>
         <th></th>
       </tr>
     </thead>
@@ -39,8 +40,15 @@
           <td class="align-middle"><%= post.customer.prefecture.name %></td>
           <td class="align-middle"><%= post.customer.history %></td>
           <td class="align-middle"><%= post.round_day %></td>
-          <td class="align-middle"><%= post.score %></td>
+          <td class="align-middle"><%= post.golf_score %></td>
           <td class="align-middle"><%= post.sentence %></td>
+          <td class="align-middle">
+            <div class="score-display" 
+              data-score="<%= post.score %>"
+              data-star-on="<%= asset_path('star-on.png') %>"
+              data-star-off="<%= asset_path('star-off.png') %>">
+            </div>
+          </td>
 
           <% if admin_signed_in? %>
             <td class="align-middle"><%= link_to '詳細', admin_course_post_path(post.course, post), class: "btn btn-success" %></td>
