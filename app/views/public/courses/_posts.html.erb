@@ -1,7 +1,19 @@
   <div class="row">
     <div class="col-12">
       <h2>投稿一覧</h2>
-      
+
+      <% if admin_signed_in? %>
+        <%= link_to '新しい順', admin_course_path(course, latest: "true") %>
+        |<%= link_to '古い順', admin_course_path(course, old: "true") %>
+        |<%= link_to 'コース難易度評価の高い順', admin_course_path(course, difficulty: "true") %>
+        |<%= link_to 'コース難易度評価の低い順', admin_course_path(course, ease: "true") %>
+      <% elsif customer_signed_in? %>
+        <%= link_to '新しい順', course_path(course, latest: "true") %>
+        |<%= link_to '古い順', course_path(course, old: "true") %>
+        |<%= link_to 'コース難易度評価の高い順', course_path(course, difficulty: "true") %>
+        |<%= link_to 'コース難易度評価の低い順', course_path(course, ease: "true") %>
+      <% end %>
+
       <div class="table-responsive">
 
         <table class="table table-bordered text-center">

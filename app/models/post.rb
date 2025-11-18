@@ -7,4 +7,9 @@ class Post < ApplicationRecord
   validates :golf_score, presence:true, length:{maximum:3}
   validates :sentence, presence:true, length:{maximum:200}
   validates :score, presence:true
+
+  scope :latest, -> {order(created_at: :desc)}
+  scope :old, -> {order(created_at: :asc)}
+  scope :difficulty, -> {order(score: :desc)}
+  scope :ease, -> {order(score: :asc)}
 end
