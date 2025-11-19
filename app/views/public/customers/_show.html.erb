@@ -12,6 +12,8 @@
               <th>ゴルファー名</th>
               <th>出身地</th>
               <th>ゴルフ歴（年）</th>
+              <th>フォロー数</th>
+              <th>フォロワー数</th>
             </tr>
           </thead>
 
@@ -21,6 +23,8 @@
               <td class="align-middle"><%= customer.name %></td>
               <td class="align-middle"><%= customer.prefecture.name %></td>
               <td class="align-middle"><%= customer.history %></td>
+              <td class="align-middle"><%= link_to customer.following.count, following_customer_path(customer) %></td>
+              <td class="align-middle"><%= link_to customer.followers.count, followers_customer_path(customer) %></td>
             </tr>
           </tbody>
 
@@ -32,6 +36,12 @@
         <%= link_to '編集', edit_admin_customer_path(customer), class: "btn btn-success" %>
       <% elsif customer_signed_in? && customer == current_customer %>
         <%= link_to '編集', edit_customer_path(customer), class: "btn btn-success" %>
+      <% else %>
+        <% if current_customer.following?(customer) %>
+          <%= link_to "フォロー外す", customer_relationship_path(current_customer, current_customer.active_relationships.find_by(followed_id: customer.id)),class: 'btn btn-danger', method: :delete %>
+        <% else %>
+          <%= link_to "フォローする", customer_relationships_path(current_customer,followed_id: customer.id),class: 'btn btn-success', method: :post %>
+        <% end %>
       <% end %>
 
     </div>

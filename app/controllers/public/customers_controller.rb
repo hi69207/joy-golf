@@ -39,6 +39,20 @@ class Public::CustomersController < ApplicationController
     end
   end
 
+  def following
+    @title = "フォロー一覧"
+    @customer  = Customer.find(params[:id])
+    @customers = @customer.following
+    render 'public/relationships/info'
+  end
+
+  def followers
+    @title = "フォロワー一覧"
+    @customer  = Customer.find(params[:id])
+    @customers = @customer.followers
+    render 'public/relationships/info'
+  end
+
   private
 
   def customer_params

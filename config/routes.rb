@@ -13,7 +13,12 @@ Rails.application.routes.draw do
     root to: "homes#about"
     get "top" => "homes#top"
     delete "customers/withdraw" => "customers#withdraw", as: 'customers_withdraw'
-    resources :customers, only: [:show, :edit, :update]
+    resources :customers, only: [:show, :edit, :update] do
+      resources :relationships, only: [:create, :destroy]
+      member do
+        get :following, :followers
+      end
+    end
     resources :courses, only: [:index, :show] do
       get 'posts', to: redirect('/courses/%{course_id}')
       resources :posts, only: [:create, :show, :edit, :update, :destroy] do
