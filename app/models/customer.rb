@@ -58,4 +58,17 @@ class Customer < ApplicationRecord
   def following?(other_customer)
     following.include?(other_customer)
   end
+
+  GUEST_CUSTOMER_NAME = "guestcustomer"
+
+  def self.guest
+    find_or_create_by!(name: GUEST_CUSTOMER_NAME) do |customer|
+      customer.password = SecureRandom.urlsafe_base64
+      customer.name = GUEST_CUSTOMER_NAME
+      customer.prefecture_id = Prefecture.first.id
+      customer.address = "富士山市富士山町243"
+      customer.history = "100.0"
+      customer.email = "guest@example.com"
+    end
+  end
 end
