@@ -1,5 +1,19 @@
   <h1>ゴルフコース</h1>
 
-  <%= render 'public/posts/show', post: @post %>
+  <div class="row">
+    <div class="col-12">
+      <h2>投稿詳細</h2>
 
-  <%= render 'public/post_comments/post_comments', post: @post, post_comment: @post_comment %>
+      <%= render 'public/posts/show', post: @post %>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <h2>コメント一覧</h2>
+
+      <%= render 'public/post_comments/post_comments', post: @post %>
+
+    </div>
+  </div>

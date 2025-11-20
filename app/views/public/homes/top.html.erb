@@ -4,10 +4,38 @@
       <div class="col-12">
         <h2>投稿一覧</h2>
 
-          <%= link_to '新しい順', top_path(latest: "true") %>
-          |<%= link_to '古い順', top_path(old: "true") %>
-          |<%= link_to 'コース難易度評価の高い順', top_path(difficulty: "true") %>
-          |<%= link_to 'コース難易度評価の低い順', top_path(ease: "true") %>
+        <div class="mb-3">
+          <%= form_with url: top_path, method: :get, local: true do |f| %>
+            <%= f.label :prefecture_id, "都道府県で絞り込む", class: "form-label" %>
+            <%= f.select :prefecture_id, 
+                          @prefectures.map { |p| [p.name, p.id] },
+                          { include_blank: '全て表示' },
+                          {
+                          class: 'form-select d-inline-block w-auto me-2',
+                          onchange: 'this.form.submit();',
+                          selected: params[:prefecture_id] 
+                          }
+            %>
+          <% end %>
+      
+          <% if params[:prefecture_id].present? %>
+            <% selected_prefecture = @prefectures.find { |p| p.id.to_s == params[:prefecture_id] } %>
+            <span class="badge bg-primary">
+              <%= selected_prefecture.name %> のコースを表示中
+              <%= link_to '×', top_path, class: 'text-white text-decoration-none ms-1' %>
+            </span>
+          <% end %>
+        </div>
+
+        <div class="mb-3">
+          <% filter_params = params.permit(:prefecture_id) %>
+
+          <%= link_to '新しい順', top_path(filter_params.merge(latest: "true")) %>
+          |<%= link_to '古い順', top_path(filter_params.merge(old: "true")) %>
+          |<%= link_to 'コース難易度評価の高い順', top_path(filter_params.merge(difficulty: "true")) %>
+          |<%= link_to 'コース難易度評価の低い順', top_path(filter_params.merge(ease: "true")) %>
+          
+        </div>
 
           <%= render 'public/posts/index', posts: @posts %>
 

@@ -36,4 +36,16 @@
     </div>
   </div>
 
-  <%= render 'public/courses/posts', course: @course, posts: @posts %>
+  <div class="row">
+    <div class="col-12">
+      <h2>投稿一覧</h2>
+
+      <%= link_to '新しい順', admin_course_path(@course, latest: "true") %>
+      |<%= link_to '古い順', admin_course_path(@course, old: "true") %>
+      |<%= link_to 'コース難易度評価の高い順', admin_course_path(@course, difficulty: "true") %>
+      |<%= link_to 'コース難易度評価の低い順', admin_course_path(@course, ease: "true") %>
+
+      <%= render 'public/courses/posts', posts: @posts %>
+
+    </div>
+  </div>

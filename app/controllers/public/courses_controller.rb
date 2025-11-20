@@ -2,7 +2,12 @@ class Public::CoursesController < ApplicationController
   before_action :authenticate_customer!
 
   def index
-    @courses = Course.all
+    @prefectures = Prefecture.all
+    if params[:prefecture_id].present?
+      @courses = Course.where(prefecture_id: params[:prefecture_id])
+    else
+      @courses = Course.all
+    end
   end
 
   def show

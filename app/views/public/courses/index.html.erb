@@ -3,6 +3,31 @@
   <div class="row">
     <div class="col-12">
       <h2>登録一覧</h2>
+
+      <div class="mb-3">
+        <%= form_with url: courses_path, method: :get, local: true do |f| %>
+          <%= f.label :prefecture_id, "都道府県で絞り込む", class: "form-label" %>
+          <%= f.select :prefecture_id, 
+                        @prefectures.map { |p| [p.name, p.id] },
+                        { include_blank: '全て表示' },
+                        {
+                        class: 'form-select d-inline-block w-auto me-2',
+                        onchange: 'this.form.submit();',
+                        selected: params[:prefecture_id] 
+                        }
+            %>
+        <% end %>
+      
+        <% if params[:prefecture_id].present? %>
+          <% selected_prefecture = @prefectures.find { |p| p.id.to_s == params[:prefecture_id] } %>
+          <span class="badge bg-primary">
+            <%= selected_prefecture.name %> のコースを表示中
+            <%= link_to '×', courses_path, class: 'text-white text-decoration-none ms-1' %>
+          </span>
+        <% end %>
+      </div>
+
       <%= render 'admin/courses/index', courses: @courses %>
+
     </div>
   </div>
