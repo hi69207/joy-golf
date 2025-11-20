@@ -10,8 +10,9 @@
         <th>ゴルファー名</th>
         <th>出身地</th>
         <th>ゴルフ歴（年）</th>
+        <th>平均スコア（過去10ラウンド）</th>
         <th>ラウンド日</th>
-        <th>ゴルフスコア</th>
+        <th>スコア</th>
         <th class="w-15">感想</th>
         <th>コース難易度評価</th>
         <th></th>
@@ -39,6 +40,7 @@
 
           <td class="align-middle"><%= post.customer.prefecture.name %></td>
           <td class="align-middle"><%= post.customer.history %></td>
+          <td class="align-middle"><%= post.customer.average_last_10_golf_score.round(1) %></td>
           <td class="align-middle"><%= post.round_day %></td>
           <td class="align-middle"><%= post.golf_score %></td>
           <td class="align-middle"><%= post.sentence %></td>

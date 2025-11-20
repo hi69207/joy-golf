@@ -17,6 +17,15 @@ class Customer < ApplicationRecord
   validates :address, presence:true
   validates :history, presence:true
 
+  def average_last_10_golf_score
+    scores = self.posts.latest_round_day.limit(10).pluck(:golf_score)
+    if scores.present?
+      scores.sum.to_f / scores.count
+    else
+      0
+    end
+  end
+
   def customer_state
     if is_active == true
       "有効"

@@ -12,6 +12,7 @@
               <th>ゴルファー名</th>
               <th>出身地</th>
               <th>ゴルフ歴（年）</th>
+              <th>平均スコア（過去10ラウンド）</th>
               <th>フォロー数</th>
               <th>フォロワー数</th>
             </tr>
@@ -23,6 +24,7 @@
               <td class="align-middle"><%= customer.name %></td>
               <td class="align-middle"><%= customer.prefecture.name %></td>
               <td class="align-middle"><%= customer.history %></td>
+              <td class="align-middle"><%= customer.average_last_10_golf_score.round(1) %></td>
               <td class="align-middle"><%= link_to customer.following.count, following_customer_path(customer) %></td>
               <td class="align-middle"><%= link_to customer.followers.count, followers_customer_path(customer) %></td>
             </tr>

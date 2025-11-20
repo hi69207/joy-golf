@@ -12,4 +12,7 @@ class Post < ApplicationRecord
   scope :old, -> {order(created_at: :asc)}
   scope :difficulty, -> {order(score: :desc)}
   scope :ease, -> {order(score: :asc)}
+
+  # 平均ゴルフスコア計算用
+  scope :latest_round_day, -> {order(round_day: :desc)}
 end

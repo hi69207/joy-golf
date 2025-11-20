@@ -10,6 +10,8 @@
             <tr>
               <th></th>
               <th>ゴルファー名</th>
+              <th>ゴルフ歴（年）</th>
+              <th>平均スコア（過去10ラウンド）</th>
               <th class="w-30">コメント</th>
               <th>コメント日</th>
               <th></th>
@@ -27,6 +29,8 @@
                 <td class="align-middle"><%= link_to post_comment.customer.name, customer_path(post_comment.customer) %></td>
               <% end %>
 
+              <td class="align-middle"><%= post_comment.customer.history %></td>
+              <td class="align-middle"><%= post_comment.customer.average_last_10_golf_score.round(1) %></td>
               <td class="align-middle"><%= post_comment.comment %></td>
               <td class="align-middle"><%= post_comment.created_at.strftime('%Y/%m/%d') %></td>
               
