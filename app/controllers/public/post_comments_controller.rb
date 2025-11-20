@@ -1,5 +1,6 @@
 class Public::PostCommentsController < ApplicationController
   before_action :authenticate_customer!
+  before_action :ensure_guest_customer
 
   def create
     @course = Course.find(params[:course_id])
@@ -28,5 +29,12 @@ class Public::PostCommentsController < ApplicationController
 
   def post_comment_params
     params.require(:post_comment).permit(:comment)
+  end
+
+  def ensure_guest_customer
+    @customer = current_customer
+    if @customer.guest_customer?
+      redirect_to request.referer , alert: "ゲスト会員はコメントできません。"
+    end
   end
 end

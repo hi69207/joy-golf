@@ -32,15 +32,17 @@
         
       </div>
 
-      <% if admin_signed_in? %>
-        <%= link_to '編集', edit_admin_customer_path(customer), class: "btn btn-success" %>
-      <% elsif customer_signed_in? && customer == current_customer %>
-        <%= link_to '編集', edit_customer_path(customer), class: "btn btn-success" %>
-      <% else %>
-        <% if current_customer.following?(customer) %>
-          <%= link_to "フォロー外す", customer_relationship_path(current_customer, current_customer.active_relationships.find_by(followed_id: customer.id)),class: 'btn btn-danger', method: :delete %>
+      <% unless customer.guest_customer? %>
+        <% if admin_signed_in? %>
+          <%= link_to '編集', edit_admin_customer_path(customer), class: "btn btn-success" %>
+        <% elsif customer == current_customer %>
+          <%= link_to '編集', edit_customer_path(customer), class: "btn btn-success" %>
         <% else %>
-          <%= link_to "フォローする", customer_relationships_path(current_customer,followed_id: customer.id),class: 'btn btn-success', method: :post %>
+          <% if current_customer.following?(customer) %>
+            <%= link_to "フォロー外す", customer_relationship_path(current_customer, current_customer.active_relationships.find_by(followed_id: customer.id)),class: 'btn btn-danger', method: :delete %>
+          <% else %>
+            <%= link_to "フォローする", customer_relationships_path(current_customer,followed_id: customer.id),class: 'btn btn-success', method: :post %>
+          <% end %>
         <% end %>
       <% end %>
 

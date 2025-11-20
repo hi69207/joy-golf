@@ -59,7 +59,7 @@ class Customer < ApplicationRecord
     following.include?(other_customer)
   end
 
-  GUEST_CUSTOMER_NAME = "guestcustomer"
+  GUEST_CUSTOMER_NAME = "ゲスト会員"
 
   def self.guest
     find_or_create_by!(name: GUEST_CUSTOMER_NAME) do |customer|
@@ -70,5 +70,9 @@ class Customer < ApplicationRecord
       customer.history = "100.0"
       customer.email = "guest@example.com"
     end
+  end
+
+  def guest_customer?
+    name == GUEST_CUSTOMER_NAME
   end
 end

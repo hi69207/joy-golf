@@ -1,6 +1,7 @@
 class Public::CustomersController < ApplicationController
   before_action :authenticate_customer!
   before_action :ensure_currect_customer, only: [:edit, :update]
+  before_action :ensure_guest_customer, only: [:edit, :update]
 
   def show
     @customer = Customer.find(params[:id])
@@ -63,6 +64,13 @@ class Public::CustomersController < ApplicationController
     @customer = Customer.find(params[:id])
     unless @customer == current_customer
       redirect_to customer_path(current_customer), alert: "ご自身以外の会員情報は編集できません。"
+    end
+  end
+
+  def ensure_guest_customer
+    @customer = Customer.find(params[:id])
+    if @customer.guest_customer?
+      redirect_to customer_path(current_customer) , alert: "ゲスト会員はプロフィール編集できません。"
     end
   end
 end
