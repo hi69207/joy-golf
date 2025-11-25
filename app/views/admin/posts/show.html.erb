@@ -9,11 +9,17 @@
     </div>
   </div>
 
+  <br>
+  
   <div class="row">
     <div class="col-12">
       <h2>コメント一覧</h2>
 
-      <%= render 'public/post_comments/post_comments', post: @post %>
+      <% if @post.post_comments.any? %>
+        <%= render 'public/post_comments/post_comments', post: @post %>
+      <% else %>
+        <a>コメントはありません</a>
+      <% end %>
 
     </div>
   </div>

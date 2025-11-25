@@ -90,6 +90,18 @@ course3 = osaka.courses.find_or_create_by!(name: "阪神城カントリークラ
   end
 end
 
+course4 = shizuoka.courses.find_or_create_by!(name: "浜松湖カントリークラブ") do |a|
+  a.address = "浜松市中央区舘山寺町195番地"
+  a.latitude = "34.765"
+  a.longitude = "137.633"
+  if File.exist?("#{Rails.root}/db/fixtures/course_4.jpg")
+    a.course_image = ActiveStorage::Blob.create_and_upload!(
+      io: File.open("#{Rails.root}/db/fixtures/course_4.jpg"), 
+      filename:"course_4.jpg"
+    )
+  end
+end
+
 suzuki = shizuoka.customers.find_or_create_by!(name: "スズキ") do |a|
   a.email = "sample1@example.com"
   a.password = "123456"
@@ -142,7 +154,7 @@ suzukiichiro = aichi.customers.find_or_create_by!(name: "スズキイチロウ")
   end
 end
 
-post1 = suzuki.posts.find_or_create_by!(round_day: "2025-11-11") do |a|
+post1 = suzuki.posts.find_or_create_by!(round_day: "2025-11-01") do |a|
   a.course = course1
   a.golf_score = "111"
   a.sentence = "日本一に恥じない難しいコースでした。"
@@ -152,15 +164,32 @@ end
 post2 = yamada.posts.find_or_create_by!(round_day: "2025-11-12") do |a|
   a.course = course2
   a.golf_score = "102"
-  a.sentence = "初心者向けのコースでもあり、ベストスコアを出すことができました。"
+  a.sentence = "比較的易しいコースでした。"
   a.score = 4
 end
 
+post3 = suzuki.posts.find_or_create_by!(round_day: "2025-11-11") do |a|
+  a.course = course2
+  a.golf_score = "91"
+  a.sentence = "初心者向けのコースでもあり、ベストスコアを出すことができました。"
+  a.score = 2
+end
+
+post4 = suzuki.posts.find_or_create_by!(round_day: "2025-11-21") do |a|
+  a.course = course4
+  a.golf_score = "101"
+  a.sentence = "比較的易しいコースでした。"
+  a.score = 2
+end
 
 comment1 = yamada.post_comments.find_or_create_by!(post_id: post1.id) do |c|
   c.comment = "私もいつか挑んでみます！"
 end
 
-comment2 = suzuki.post_comments.find_or_create_by!(post_id: post2.id) do |c|
+comment2 = yamada.post_comments.find_or_create_by!(post_id: post3.id) do |c|
   c.comment = "ベストスコアおめでとうございます！"
+end
+
+comment3 = suzuki.post_comments.find_or_create_by!(post_id: post3.id) do |c|
+  c.comment = "ありがとうございます！"
 end

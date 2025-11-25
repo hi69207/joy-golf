@@ -1,1 +1,22 @@
-@use '~bootstrap/scss/bootstrap';
+@import '~bootstrap/scss/bootstrap';
+
+header {
+  background-color: #e6f9e6 !important;
+}
+
+/* ナビゲーションバーの背景を透明にして、ヘッダーの色を透かして見せる (既存) */
+header .nav-link {
+  font-weight: bold !important; /* 文字を太く（ボールド）にする */
+  font-family: 'Hiragino Maru Gothic ProN', 'ヒラギノ丸ゴ ProN', 'ヒラギノ丸ゴ Pro', 'Avenir', '游ゴシック体', 'Yu Gothic', 'YuGothic', 'メイリオ', Meiryo, sans-serif !important; 
+  /* ↑ 丸みを帯びたフォントを指定 */
+}
+
+/* 💡 新規追加: フッターの背景色を濃い灰色に強制適用 */
+footer {
+  background-color: #adb5bd !important; /* より濃い灰色 */
+}
+
+.navbar-toggler-icon {
+  // 灰色のSVG背景画像を設定（#6c757d は Bootstrap の Secondary カラー）
+  background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='%236c757d' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+}
