@@ -1,8 +1,6 @@
-  <h1>ゴルフコース</h1>
-
   <div class="row mb-4">
     <div class="col-md-8 offset-md-2">
-      <h2>登録フォーム</h2>
+      <h2>ゴルフコース登録</h2>
 
       <%= render 'layouts/errors', obj: @course %>
 
@@ -62,7 +60,7 @@
 
   <div class="row">
     <div class="col-12">
-      <h2>登録一覧</h2>
+      <h2>ゴルフコース一覧</h2>
       
       <div class="mb-3">
         <%= form_with url: admin_courses_path, method: :get, local: true do |f| %>

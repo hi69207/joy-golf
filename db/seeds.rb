@@ -116,7 +116,7 @@ suzuki = shizuoka.customers.find_or_create_by!(name: "スズキ") do |a|
 end
 
 yamada = tokyo.customers.find_or_create_by!(name: "ヤマダ") do |a|
-  a.email = "sample2@examsample.com"
+  a.email = "sample2@example.com"
   a.password = "123456"
   a.address = "東都区東都２丁目２−２"
   a.history = 2.0
@@ -129,7 +129,7 @@ yamada = tokyo.customers.find_or_create_by!(name: "ヤマダ") do |a|
 end
 
 sato = osaka.customers.find_or_create_by!(name: "サトウ") do |a|
-  a.email = "sample3@examsample.com"
+  a.email = "sample3@example.com"
   a.password = "123456"
   a.address = "大阪市大阪区阪神城３丁目３−３"
   a.history = 3.0

@@ -1,8 +1,6 @@
-  <h1>会員</h1>
-
   <div class="row mb-4">
     <div class="col-12">
-      <h2>詳細</h2>
+      <h2>会員詳細</h2>
 
       <%= render 'public/customers/show', customer: @customer %>
 
@@ -12,6 +10,7 @@
   <div class="row">
     <div class="col-12">
       <h2>投稿一覧</h2>
+      <% if @posts.any? %>
 
         <div class="mb-3">
           <%= form_with url: admin_customer_path(@customer), method: :get, local: true do |f| %>
@@ -47,6 +46,10 @@
         </div>
 
         <%= render 'public/customers/posts', posts: @posts %>
+
+      <% else %>
+        <a>投稿はありません</a>
+      <% end %>
 
     </div>
   </div>

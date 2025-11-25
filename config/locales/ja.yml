@@ -55,7 +55,8 @@ ja:
         prefecture: "都道府県"
       post:
         round_day: "ラウンド日"
-        score: "ゴルフスコア"
+        golf_score: "ゴルフスコア"
         sentence: "感想"
+        score: "コース難易度評価"
       post_comment:
         comment: "コメント"
