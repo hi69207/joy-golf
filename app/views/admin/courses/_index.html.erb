@@ -4,7 +4,7 @@
   
     <thead class="thead-light">
       <tr>
-        <th></th>
+        <th>コース画像</th>
         <th>コース名</th>
         <th>住所</th>
         <th>投稿数</th>
@@ -22,7 +22,7 @@
     <tbody>
       <% courses.each do |course| %>
         <tr>
-          <td class="align-middle"><%= image_tag course.get_course_image, size:'100x100' %></td>
+          <td class="align-middle"><%= image_tag course.get_course_image, size:'200x200' %></td>
           <td class="align-middle"><%= course.name %></td>
           <td class="align-middle"><%= course.prefecture.name %> <%= course.address %></td>
           <td class="align-middle"><%= course.posts.count %></td>

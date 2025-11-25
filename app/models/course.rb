@@ -21,7 +21,7 @@ class Course < ApplicationRecord
       file_path = Rails.root.join('app/assets/images/no_image.jpg')
       course_image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
     end
-      course_image
+      course_image.variant(resize_to_fill: [600, 600], gravity: 'center')
   end
 
   def self.looks(search, word)

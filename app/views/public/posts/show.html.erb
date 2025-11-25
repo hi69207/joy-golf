@@ -1,5 +1,29 @@
-  <h1>ゴルフコース</h1>
+  <div class="row">
+    <div class="col-12">
+      <h2>投稿詳細</h2>
 
-  <%= render 'public/posts/show', post: @post %>
+      <%= render 'public/posts/show', post: @post %>
 
-  <%= render 'public/post_comments/post_comments', post: @post, post_comment: @post_comment %>
+    </div>
+  </div>
+
+  <br>
+
+  <div class="row">
+    <div class="col-12">
+      <h2>コメント一覧</h2>
+
+      <% if @post.post_comments.any? %>
+        <%= render 'public/post_comments/post_comments', post: @post %>
+      <% else %>
+        <a>コメントはありません</a>
+      <% end %>
+
+    </div>
+  </div>
+
+  <% if customer_signed_in? %>
+
+    <%= render 'public/post_comments/form', post: @post, post_comment: @post_comment %>
+
+  <% end %>

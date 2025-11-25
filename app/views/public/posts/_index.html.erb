@@ -1,59 +1,94 @@
 <div class="table-responsive">
+  <% posts.each do |post| %>
+    
+    <div class="border p-3 mb-5 rounded shadow-sm"> 
+      
+      <h5 class="mb-2">コース情報</h5>
+      <table class="table table-bordered table-sm text-center">
+        <thead class="thead-light">
+          <tr>
+            <th>コース画像</th>
+            <th>コース名</th>
+            <th>住所</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="align-middle" style="width: 100px;"><%= image_tag post.course.get_course_image, size:'200x200' %></td>
+            
+            <% if admin_signed_in? %>
+              <td class="align-middle"><%= link_to post.course.name, admin_course_path(post.course) %></td>
+            <% elsif customer_signed_in? %>
+              <td class="align-middle"><%= link_to post.course.name, course_path(post.course) %></td>
+            <% end %>
 
-  <table class="table table-bordered text-center">
+            <td class="align-middle"><%= post.course.prefecture.name %> <%= post.course.address %></td>
+          </tr>
+        </tbody>
+      </table>
 
-    <thead class="thead-light">
-      <tr>
-        <th></th>
-        <th class="w-15">コース名</th>
-        <th class="w-15">住所</th>
-        <th>ゴルファー名</th>
-        <th>出身地</th>
-        <th>ゴルフ歴（年）</th>
-        <th>ラウンド日</th>
-        <th>ゴルフスコア</th>
-        <th class="w-15">感想</th>
-        <th></th>
-      </tr>
-    </thead>
+      <h5 class="mt-4 mb-2">ゴルファー情報</h5>
+      <table class="table table-bordered table-sm text-center">
+        <thead class="thead-light">
+          <tr>
+            <th>ゴルファー名</th>
+            <th>出身地</th>
+            <th>ゴルフ歴（年）</th>
+            <th>平均スコア（過去10R）</th>
+            <th>ラウンド日</th>
+            <th>スコア</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <% if admin_signed_in? %>
+              <td class="align-middle"><%= link_to post.customer.name, admin_customer_path(post.customer) %></td>
+            <% elsif customer_signed_in? %>
+              <td class="align-middle"><%= link_to post.customer.name, customer_path(post.customer) %></td>
+            <% end %>
 
-    <tbody>
-      <% posts.each do |post| %>
-        <tr>
-          <td class="align-middle"><%= image_tag post.course.get_course_image, size:'100x100' %></td>
+            <td class="align-middle"><%= post.customer.prefecture.name %></td>
+            <td class="align-middle"><%= post.customer.history %></td>
+            <td class="align-middle"><%= post.customer.average_last_10_golf_score.round(1) %></td>
+            <td class="align-middle"><%= post.round_day %></td>
+            <td class="align-middle"><%= post.golf_score %></td>
+          </tr>
+        </tbody>
+      </table>
 
-          <% if admin_signed_in? %>
-            <td class="align-middle"><%= link_to post.course.name, admin_course_path(post.course) %></td>
-          <% elsif customer_signed_in? %>
-            <td class="align-middle"><%= link_to post.course.name, course_path(post.course) %></td>
-          <% end %>
+      <table class="table table-bordered table-sm text-center mb-0">
+        <thead class="thead-light">
+          <tr>
+            <th>感想</th>
+            <th>コース難易度評価</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="align-middle"><%= post.sentence %></td>
+            <td class="align-middle" style="width: 150px;">
+              <div class="score-display" 
+                data-score="<%= post.score %>"
+                data-star-on="<%= asset_path('star-on.png') %>"
+                data-star-off="<%= asset_path('star-off.png') %>">
+              </div>
+            </td>
 
-          <td class="align-middle"><%= post.course.prefecture.name %> <%= post.course.address %></td>
+            <% if admin_signed_in? %>
+              <td class="align-middle" style="width: 80px;"><%= link_to '詳細', admin_course_post_path(post.course, post), class: "btn btn-success btn-sm" %></td>
+            <% elsif customer_signed_in? %>
+              <td class="align-middle" style="width: 80px;"><%= link_to '詳細', course_post_path(post.course, post), class: "btn btn-success btn-sm" %></td>
+            <% end %>
+          </tr>
+        </tbody>
+      </table>
+      
+    </div> 
+    
+  <% end %> 
+</div> 
 
-          <% if admin_signed_in? %>
-            <td class="align-middle"><%= link_to post.customer.name, admin_customer_path(post.customer) %></td>
-          <% elsif customer_signed_in? %>
-            <td class="align-middle"><%= link_to post.customer.name, customer_path(post.customer) %></td>
-          <% end %>
-
-          <td class="align-middle"><%= post.customer.prefecture.name %></td>
-          <td class="align-middle"><%= post.customer.history %></td>
-          <td class="align-middle"><%= post.round_day %></td>
-          <td class="align-middle"><%= post.score %></td>
-          <td class="align-middle"><%= post.sentence %></td>
-
-          <% if admin_signed_in? %>
-            <td class="align-middle"><%= link_to '詳細', admin_course_post_path(post.course, post), class: "btn btn-success" %></td>
-          <% elsif customer_signed_in? %>
-            <td class="align-middle"><%= link_to '詳細', course_post_path(post.course, post), class: "btn btn-success" %></td>
-          <% end %>
-
-        </tr>
-      <% end %>
-    </tbody>
-
-  </table>
-
-  </div> <div class="d-flex justify-content-center">
-    <%= paginate posts %>
-  </div>
+<div class="d-flex justify-content-center">
+  <%= paginate posts %>
+</div>

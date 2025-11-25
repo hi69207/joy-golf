@@ -9,11 +9,20 @@ Rails.application.routes.draw do
     sessions: 'public/sessions'
   }
 
+  devise_scope :customer do
+    post "customers/guest_sign_in", to: "public/sessions#guest_sign_in" 
+  end
+
   scope module: :public do
     root to: "homes#about"
     get "top" => "homes#top"
     delete "customers/withdraw" => "customers#withdraw", as: 'customers_withdraw'
-    resources :customers, only: [:show, :edit, :update]
+    resources :customers, only: [:show, :edit, :update] do
+      resources :relationships, only: [:create, :destroy]
+      member do
+        get :following, :followers
+      end
+    end
     resources :courses, only: [:index, :show] do
       get 'posts', to: redirect('/courses/%{course_id}')
       resources :posts, only: [:create, :show, :edit, :update, :destroy] do

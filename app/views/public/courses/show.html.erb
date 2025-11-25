@@ -1,8 +1,6 @@
-  <h1>ゴルフコース</h1>
-
   <div class="row mb-4">
     <div class="col-12">
-      <h2>詳細</h2>
+      <h2>ゴルフコース詳細</h2>
       
       <div class="table-responsive">
         
@@ -10,7 +8,7 @@
           
           <thead class="thead-light">
             <tr>
-              <th></th>
+              <th>コース画像</th>
               <th>コース名</th>
               <th>住所</th>
             </tr>
@@ -41,14 +39,23 @@
         </div>
         
         <div class="form-group">
-          <%= f.label :score, "ゴルフスコア" %>
-          <%= f.text_field :score, class: "form-control" %>
+          <%= f.label :golf_score, "ゴルフスコア" %>
+          <%= f.text_field :golf_score, class: "form-control" %>
         </div>
         
         <div class="form-group">
           <%= f.label :sentence, "感想" %>
           <%= f.text_field :sentence, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :score, "コース難易度評価" %>
+        
+          <div id="post_raty" 
+             data-star-on="<%= asset_path('star-on.png') %>"
+             data-star-off="<%= asset_path('star-off.png') %>">
           </div>
+        </div>
         
         <div class="form-group">
           <%= f.submit '投稿', class: 'btn btn-success' %>
@@ -58,4 +65,22 @@
     </div>
   </div>
 
-  <%= render 'public/courses/posts', posts: @posts %>
+  <div class="row">
+    <div class="col-12">
+      <h2>投稿一覧</h2>
+
+      <% if @posts.any? %>
+
+        <%= link_to '新しい順', course_path(@course, latest: "true") %>
+        |<%= link_to '古い順', course_path(@course, old: "true") %>
+        |<%= link_to 'コース難易度評価の高い順', course_path(@course, difficulty: "true") %>
+        |<%= link_to 'コース難易度評価の低い順', course_path(@course, ease: "true") %>
+
+        <%= render 'public/courses/posts', posts: @posts %>
+
+      <% else %>
+        <a>投稿はありません</a>
+      <% end %>
+
+    </div>
+  </div>

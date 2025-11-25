@@ -1,12 +1,32 @@
 class Public::CustomersController < ApplicationController
   before_action :authenticate_customer!
   before_action :ensure_currect_customer, only: [:edit, :update]
+  before_action :ensure_guest_customer, only: [:edit, :update]
 
   def show
     @customer = Customer.find(params[:id])
+    @prefectures = Prefecture.all
     @posts = @customer.posts.includes(:course => :prefecture)
-                          .order(created_at: :desc) 
-                          .page(params[:page]).per(30)
+
+    if params[:prefecture_id].present?
+      course_ids = Course.where(prefecture_id: params[:prefecture_id]).pluck(:id)
+      @posts = @posts.where(course_id: course_ids)
+    end
+
+    if params[:latest]
+      @posts = @posts.latest
+    elsif params[:old]
+      @posts = @posts.old
+    elsif params[:difficulty]
+      @posts = @posts.difficulty
+    elsif params[:ease]
+      @posts = @posts.ease
+    else
+      @posts = @posts.latest 
+    end
+
+    @posts = @posts.page(params[:page]).per(10)
+
   end
 
   def withdraw
@@ -29,6 +49,20 @@ class Public::CustomersController < ApplicationController
     end
   end
 
+  def following
+    @title = "フォロー一覧"
+    @customer  = Customer.find(params[:id])
+    @customers = @customer.following
+    render 'public/relationships/info'
+  end
+
+  def followers
+    @title = "フォロワー一覧"
+    @customer  = Customer.find(params[:id])
+    @customers = @customer.followers
+    render 'public/relationships/info'
+  end
+
   private
 
   def customer_params
@@ -39,6 +73,13 @@ class Public::CustomersController < ApplicationController
     @customer = Customer.find(params[:id])
     unless @customer == current_customer
       redirect_to customer_path(current_customer), alert: "ご自身以外の会員情報は編集できません。"
+    end
+  end
+
+  def ensure_guest_customer
+    @customer = Customer.find(params[:id])
+    if @customer.guest_customer?
+      redirect_to customer_path(current_customer) , alert: "ゲスト会員はプロフィール編集できません。"
     end
   end
 end

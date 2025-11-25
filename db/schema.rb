@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_11_16_044459) do
+ActiveRecord::Schema.define(version: 2025_11_19_083343) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -93,10 +93,11 @@ ActiveRecord::Schema.define(version: 2025_11_16_044459) do
     t.integer "customer_id", null: false
     t.integer "course_id"
     t.date "round_day", null: false
-    t.integer "score", null: false
+    t.integer "golf_score", null: false
     t.text "sentence", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "score", default: 5, null: false
   end
 
   create_table "prefectures", force: :cascade do |t|
@@ -105,6 +106,16 @@ ActiveRecord::Schema.define(version: 2025_11_16_044459) do
     t.float "longitude", default: 0.0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "relationships", force: :cascade do |t|
+    t.integer "follower_id", null: false
+    t.integer "followed_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["followed_id"], name: "index_relationships_on_followed_id"
+    t.index ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
+    t.index ["follower_id"], name: "index_relationships_on_follower_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

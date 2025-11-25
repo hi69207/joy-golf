@@ -1,0 +1,51 @@
+  <div class="row mb-4">
+    <div class="col-12">
+
+      <% if @customers.any? %>
+
+        <h2><%= @title %></h2>
+
+        <div class="table-responsive">
+
+          <table class="table table-bordered text-center">
+          
+            <thead class="thead-light">
+
+              <tr>
+                <th></th>
+                <th>ゴルファー名</th>
+                <th>出身地</th>
+                <th>ゴルフ歴（年）</th>
+                <th>フォロー数</th>
+                <th>フォロワー数</th>
+                <th></th>
+              </tr>
+
+            </thead>
+
+            <tbody>
+              <% @customers.each do |customer| %>
+              <tr>
+                <td class="align-middle"><%= image_tag customer.get_profile_image, size: '100x100' %></td>
+                <td class="align-middle"><%= customer.name %></td>
+                <td class="align-middle"><%= customer.prefecture.name %></td>
+                <td class="align-middle"><%= customer.history %></td>
+                <td class="align-middle"><%= link_to customer.following.count, following_customer_path(customer) %></td>
+                <td class="align-middle"><%= link_to customer.followers.count, followers_customer_path(customer) %></td>
+                <td class="align-middle"><%= link_to '詳細', customer, class: "btn btn-success" %></td>
+              </tr>
+              <% end %>
+            </tbody>
+
+          </table>
+
+        </div>
+
+      <% else %>
+
+        <h2>登録はありません</h2>
+
+      <% end %>
+      
+    </div>
+  </div>

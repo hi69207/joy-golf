@@ -8,10 +8,23 @@ class Customer < ApplicationRecord
   belongs_to :prefecture
   has_many :posts, dependent: :destroy
   has_many :post_comments, dependent: :destroy
+  has_many :active_relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
+  has_many :following, through: :active_relationships, source: :followed
+  has_many :passive_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
+  has_many :followers, through: :passive_relationships, source: :follower
 
   validates :name, presence:true, length:{maximum:20}, uniqueness: true
   validates :address, presence:true
   validates :history, presence:true
+
+  def average_last_10_golf_score
+    scores = self.posts.latest_round_day.limit(10).pluck(:golf_score)
+    if scores.present?
+      scores.sum.to_f / scores.count
+    else
+      0
+    end
+  end
 
   def customer_state
     if is_active == true
@@ -26,7 +39,7 @@ class Customer < ApplicationRecord
       file_path = Rails.root.join('app/assets/images/no_image.jpg')
       profile_image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
     end
-      profile_image
+      profile_image.variant(resize_to_fill: [600, 600], gravity: 'center')
   end
 
   def self.looks(search, word)
@@ -41,5 +54,34 @@ class Customer < ApplicationRecord
     else
       @customer = Customer.all
     end
+  end
+
+  def follow(other_customer)
+    following << other_customer unless self == other_customer
+  end
+
+  def unfollow(other_customer)
+    active_relationships.find_by(followed_id: other_customer.id).destroy
+  end
+  
+  def following?(other_customer)
+    following.include?(other_customer)
+  end
+
+  GUEST_CUSTOMER_NAME = "ゲスト会員"
+
+  def self.guest
+    find_or_create_by!(name: GUEST_CUSTOMER_NAME) do |customer|
+      customer.password = SecureRandom.urlsafe_base64
+      customer.name = GUEST_CUSTOMER_NAME
+      customer.prefecture_id = Prefecture.first.id
+      customer.address = "富士山市富士山町243"
+      customer.history = "100.0"
+      customer.email = "guest@example.com"
+    end
+  end
+
+  def guest_customer?
+    name == GUEST_CUSTOMER_NAME
   end
 end

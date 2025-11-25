@@ -1,7 +1,3 @@
-  <div class="row mb-4">
-    <div class="col-12">
-      <h2>詳細</h2>
-      
       <div class="table-responsive">
         
         <table class="table table-bordered text-center">
@@ -12,15 +8,21 @@
               <th>ゴルファー名</th>
               <th>出身地</th>
               <th>ゴルフ歴（年）</th>
+              <th>平均スコア（過去10ラウンド）</th>
+              <th>フォロー数</th>
+              <th>フォロワー数</th>
             </tr>
           </thead>
 
           <tbody>
             <tr>
-              <td class="align-middle"><%= image_tag customer.get_profile_image, size:'200x200' %></td>
+              <td class="align-middle"><%= image_tag customer.get_profile_image, size:'150x150' %></td>
               <td class="align-middle"><%= customer.name %></td>
               <td class="align-middle"><%= customer.prefecture.name %></td>
               <td class="align-middle"><%= customer.history %></td>
+              <td class="align-middle"><%= customer.average_last_10_golf_score.round(1) %></td>
+              <td class="align-middle"><%= link_to customer.following.count, following_customer_path(customer) %></td>
+              <td class="align-middle"><%= link_to customer.followers.count, followers_customer_path(customer) %></td>
             </tr>
           </tbody>
 
@@ -28,11 +30,16 @@
         
       </div>
 
-      <% if admin_signed_in? %>
-        <%= link_to '編集', edit_admin_customer_path(customer), class: "btn btn-success" %>
-      <% elsif customer_signed_in? && customer == current_customer %>
-        <%= link_to '編集', edit_customer_path(customer), class: "btn btn-success" %>
+      <% unless customer.guest_customer? %>
+        <% if admin_signed_in? %>
+          <%= link_to '編集', edit_admin_customer_path(customer), class: "btn btn-success" %>
+        <% elsif customer == current_customer %>
+          <%= link_to '編集', edit_customer_path(customer), class: "btn btn-success" %>
+        <% else %>
+          <% if current_customer.following?(customer) %>
+            <%= link_to "フォロー外す", customer_relationship_path(current_customer, current_customer.active_relationships.find_by(followed_id: customer.id)),class: 'btn btn-danger', method: :delete %>
+          <% else %>
+            <%= link_to "フォローする", customer_relationships_path(current_customer,followed_id: customer.id),class: 'btn btn-success', method: :post %>
+          <% end %>
+        <% end %>
       <% end %>
-
-    </div>
-  </div>

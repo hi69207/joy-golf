@@ -1,6 +1,7 @@
 class Public::PostsController < ApplicationController
   before_action :authenticate_customer!
   before_action :ensure_currect_customer, only: [:edit, :update, :destroy]
+  before_action :ensure_guest_customer, only: [:create]
 
   def create
     @course = Course.find(params[:course_id])
@@ -44,13 +45,20 @@ class Public::PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:round_day, :score, :sentence)
+    params.require(:post).permit(:round_day, :golf_score, :sentence, :score)
   end
 
   def ensure_currect_customer
     @post = Post.find(params[:id])
     unless @post.customer == current_customer
       redirect_to customer_path(current_customer), alert: "ご自身以外の投稿は編集・削除できません。"
+    end
+  end
+
+  def ensure_guest_customer
+    @customer = current_customer
+    if @customer.guest_customer?
+      redirect_to request.referer , alert: "ゲスト会員は投稿できません。"
     end
   end
 end
